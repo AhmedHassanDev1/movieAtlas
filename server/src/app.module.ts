@@ -25,7 +25,7 @@ import { PrismaExceptionFilter } from './shared/filterException/PrismaExceptionF
         PORT: Joi.number().default(8000),
         JWT_ACCESS_SECRET: Joi.string().required(),
         JWT_REFRESH_SECRET: Joi.string().required(),
-        ORIGIN: Joi.string().required(),
+        CLIENT_URL: Joi.string().required(),
         CACHE_TTL: Joi.number().default(3600),
         CACHE_MAX_SIZE: Joi.number().default(1000),
       }),

@@ -27,7 +27,7 @@ async function bootstrap() {
   SwaggerModule.setup("swagger", app, documentation)
   // Enable CORS with specific origin and credentials support
   app.enableCors({
-    origin: [process.env.ORIGIN, 'http://localhost:3000'],
+    origin: [process.env.CLIENT_URL, 'http://localhost:3000'],
     credentials: true,
   });
 

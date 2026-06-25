@@ -72,7 +72,7 @@ export default async function RootLayout({
           <Header />
           {children}
 
-          <ReactQueryDevtools />
+      
           <ToastContainer limit={2} />
         </body>
       </Providers>

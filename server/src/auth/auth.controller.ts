@@ -19,8 +19,8 @@ export class AuthController {
   constructor(private readonly authService: AuthService) { }
 
   setTokens(refreshToken: string, accessToken: string, res: express.Response) {
-    res.cookie('refreshToken', refreshToken,Cookieoptions);
-    res.cookie('accessToken', accessToken,Cookieoptions);
+    res.cookie('refreshToken', refreshToken, Cookieoptions);
+    res.cookie('accessToken', accessToken, Cookieoptions);
   }
 
 
@@ -40,7 +40,7 @@ export class AuthController {
 
     const { refresh, access } = await this.authService.generateRefreshAndAccessTokens(user)
     this.setTokens(refresh, access, res)
-    res.redirect("http://localhost:3000/en/")
+    res.redirect(process.env.CLIENT_URL as string)
   }
 
   @Throttle({ default: { limit: 5, ttl: hours(5) } })
@@ -77,7 +77,7 @@ export class AuthController {
     return await this.authService.sendVerificationCode({ email, code })
   }
 
-  
+
   @RefreshRoute()
   @Put("refresh-token")
   async refreshToken(@User() user, @Res({ passthrough: true }) res: express.Response) {
@@ -86,7 +86,7 @@ export class AuthController {
 
     res.cookie('accessToken', access, Cookieoptions);
   }
-  
+
   @SkipThrottle()
   @Delete('/logout')
   async logout(
