@@ -1,3 +1,4 @@
+"use client"
 import Image from "next/image";
 import { Box, Skeleton, Stack } from "@mui/material";
 import { genImageUrl } from "@/utils/url";

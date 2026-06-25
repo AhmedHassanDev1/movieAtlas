@@ -1,4 +1,4 @@
-import { Box, Grid, Stack } from "@mui/material"
+import { Box, Grid, ImageList, ImageListItem, Stack } from "@mui/material"
 
 import SectionTitle from "@/design-system/components/ui/SectionTitle"
 import { ImagesReponseType } from "../../types/media"
@@ -6,22 +6,19 @@ import { ImagesReponseType } from "../../types/media"
 import Image from "next/image"
 
 async function getImages(titleId: string): Promise<ImagesReponseType> {
-    const res = await fetch(`${process.env.API_URL}/title/${titleId}/images?limit=5`, {
-        next: { revalidate: 60 }
+    const res = await fetch(`${process.env.API_URL}/title/${titleId}/images?limit=8`, {
+        next: { revalidate: 3600 }
     })
 
     if (!res.ok) throw new Error("")
     const data = await res.json()
     return data
 }
-
 async function ImagesSection({ titleId }: { titleId: string }) {
-    const data = await getImages(titleId)
+    const data = await getImages(titleId);
+    const images = data.data;
 
-
-    const images = data.data
-
-    if (images.length === 0) {
+    if (!images.length) {
         return (
             <Stack spacing={2}>
                 <SectionTitle title="title.images" />
@@ -41,74 +38,52 @@ async function ImagesSection({ titleId }: { titleId: string }) {
         );
     }
 
-    const imageHeroUrl = images[0].url
     return (
-
-        <Stack direction={"column"}>
+        <Stack spacing={2}>
             <SectionTitle title="title.images" />
 
             <Box
                 sx={{
-                    width: "100%",
-                    aspectRatio: "16/9",
-                    position: "relative",
-                    borderRadius: 2,
+                    columnCount: {
+                        xs: 2,
+                        sm: 3,
+                        md: 4,
+                    },
+                    columnGap: 1.5,
                 }}
             >
-                <Image
-                    src={imageHeroUrl as string}
-                    fill
-                    objectFit="cover"
-                    objectPosition="center"
-                    alt="tile image"
-                />
-                <Box
-                    sx={{
-                        position: "absolute",
-                        inset: 0,
-                        zIndex: 2,
-                        background:
-                            "linear-gradient(to top, rgba(0,0,0,0.9), transparent)",
-                    }}
-                />
-            </Box>
-            {/* small images gallery */}
-            <Box
-                sx={{
-                    display: "flex",
-                    flexWrap: "wrap",
-                    gap: 1,
-                    overflowX: "auto",
-                    p: 2,
-                }}
-            >
-                {images.slice(1).map((img) => (
+                {images.map((img) => (
                     <Box
-                        key={img.id}
+                        key={img.id ?? img.url}
                         sx={{
-                            flex:{
-                                xs:"0 0 calc((100% - 24px) / 2)",
-                                md:"0 0 calc((100% - 24px) / 4)"
-                            },
-                            aspectRatio: "16/9",
-                            position: "relative",
+                            breakInside: "avoid",
+                            marginBottom: 1.5,
                             borderRadius: 2,
                             overflow: "hidden",
+                            position: "relative",
                         }}
                     >
-                        <Image
-                            src={img.url}
-                            fill
-                            alt=""
-                            style={{ objectFit: "cover" }}
-                        />
+                        <Box
+                            sx={{
+                                position: "relative",
+                                width: "100%",
+                                aspectRatio: img.aspect_ratio || "16 / 9",
+                            }}
+                        >
+                            <Image
+                                src={img.url}
+                                alt=""
+                                fill
+                                style={{
+                                    objectFit: "cover",
+                                }}
+                            />
+                        </Box>
                     </Box>
                 ))}
             </Box>
-
-        </Stack >
-
-    )
+        </Stack>
+    );
 }
 
-export default ImagesSection
+export default ImagesSection;

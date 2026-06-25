@@ -1,8 +1,9 @@
 
+
 export type TmdbDiscoverItem = {
     id: number;
-    tmdb_id:string
-    media_type:"Movie"|"TV"
+    tmdb_id: string
+    media_type: "Movie" | "TV"
     title?: string;
     name?: string;
     poster_path: string;

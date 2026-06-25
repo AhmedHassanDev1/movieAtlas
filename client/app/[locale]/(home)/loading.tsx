@@ -9,7 +9,7 @@ export default function HeroSkeleton() {
         overflow: "hidden",
         position: "relative",
         padding:2
-      }}
+      }}    
     >
       {/* TRACK */}
       <Box

@@ -1,8 +1,9 @@
-import { BadRequestException, Controller, Get, Param, Post, Query } from '@nestjs/common';
+import { BadRequestException, Controller, Get, Param, ParseFloatPipe, ParseIntPipe, Post, Query } from '@nestjs/common';
 import { DiscoverType } from '@prisma/client';
 import { Public } from 'src/shared/decorators/publicRoute.decorator';
 import { DiscoverService } from './services/discover.service';
 import { ACTIVE_MOVIE_DISCOVER_TYPES, DiscoverAsyncService } from './services/DiscoverSync.service';
+import { ApiOkResponse, ApiOperation, ApiQuery } from '@nestjs/swagger';
 
 type DiscoverListParam = "trending" | "popular" | "top-rated" | "now-playing" | "upcoming";
 
@@ -20,7 +21,113 @@ export class DiscoverController {
     private readonly discoverService: DiscoverService,
     private readonly async: DiscoverAsyncService,
 
-  ) {}
+  ) { }
+
+  @Public()
+  @Get("/titles")
+   @ApiOperation({
+    summary: 'Get movies or TV shows',
+    description: 'Retrieve a paginated list of titles with filters.'
+  })
+
+  @ApiQuery({
+    name: 'type',
+    required: false,
+    enum: ['movie', 'tv'],
+    example: 'movie',
+  })
+
+  @ApiQuery({
+    name: 'genreIds',
+    required: false,
+    type: String,
+    description: 'Comma separated genre ids',
+    example: '28,12,16',
+  })
+
+  @ApiQuery({
+    name: 'sortBy',
+    required: false,
+    enum: [
+      'popularity.desc',
+      'popularity.asc',
+      'rating.desc',
+      'rating.asc',
+      'releaseDate.desc',
+      'releaseDate.asc',
+    ],
+    example: 'popularity.desc',
+  })
+
+  @ApiQuery({
+    name: 'minRating',
+    required: false,
+    type: Number,
+    example: 7.5,
+  })
+
+  @ApiQuery({
+    name: 'page',
+    required: false,
+    type: Number,
+    example: 1,
+  })
+
+  @ApiQuery({
+    name: 'limit',
+    required: false,
+    type: Number,
+    example: 20,
+  })
+
+  @ApiOkResponse({
+    description: 'Titles retrieved successfully',
+    // type: DiscoverResponseDto
+  })
+  async getTitleList(
+
+    @Query("type") type?: "movie" | "tv",
+
+    @Query("genreIds") genreIds?: string,
+
+    @Query("sortBy")
+    sortBy?: "popularity.desc" | "popularity.asc"
+      | "rating.desc" | "rating.asc"
+      | "releaseDate.desc" | "releaseDate.asc",
+
+    @Query("minRating", new ParseFloatPipe({ optional: true }))
+    minRating?: number,
+
+    @Query("page", new ParseIntPipe({ optional: true }))
+    page = 1,
+
+    @Query("limit", new ParseIntPipe({ optional: true }))
+    limit = 20,
+  ) {
+    const genres = genreIds
+      ? genreIds.split(",").map(Number)
+      : [];
+
+    return await this.discoverService.getTitles({
+      type,
+      genreIds: genres,
+      sortBy,
+      minRating,
+      page,
+      limit,
+    });
+  }
+
+
+  @Public()
+  @Get("/genres")
+  async discoverGenres(
+    @Query("page") page = 1,
+    @Query("limit") limit = 20,
+    @Query("genreId") genreId: number
+  ) {
+    return await this.discoverService.getGenres(genreId, page, limit)
+  }
 
   @Public()
   @Get("/:list")
@@ -49,4 +156,6 @@ export class DiscoverController {
 
     return this.async.syncMovieList(type);
   }
+
+
 }

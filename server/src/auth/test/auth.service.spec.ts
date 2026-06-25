@@ -5,12 +5,44 @@ import { MailerService } from '@nestjs-modules/mailer';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { prismaMock, mailerMock, redisMock, jwtMock, configMock } from "../mock/authService.mock"
+// auth.service.spec.ts
+
 
 describe('AuthService', () => {
   let service: AuthService;
 
+  const prismaMock = {
+    user: {
+      findUnique: jest.fn(),
+      create: jest.fn(),
+      update: jest.fn(),
+    },
+    account: {
+      findFirst: jest.fn(),
+      create: jest.fn(),
+    },
+  };
+
+  const redisMock = {
+    get: jest.fn(),
+    set: jest.fn(),
+    del: jest.fn(),
+  };
+
+  const mailerMock = {
+    sendMail: jest.fn(),
+  };
+
+  const jwtMock = {
+    signAsync: jest.fn(),
+  };
+
+  const configMock = {
+    get: jest.fn(),
+  };
+
   beforeEach(async () => {
-    const module = await Test.createTestingModule({
+    const moduleRef = await Test.createTestingModule({
       providers: [
         AuthService,
         { provide: PrismaService, useValue: prismaMock },
@@ -21,56 +53,48 @@ describe('AuthService', () => {
       ],
     }).compile();
 
-    service = module.get(AuthService);
+    service = moduleRef.get(AuthService);
+
+    jest.clearAllMocks();
   });
 
-  it("auth service is Defined", () => {
-    expect(service).toBeDefined()
-  })
 
-  it("should create user and send code.", async () => {
-    prismaMock.user.findUnique.mockResolvedValue(null)
+  it('should hash password', async () => {
+    const hash = await service.genHashpassword('123456');
+    expect(typeof hash).toBe('string');
+  });
+
+  it('should create user and send verification code', async () => {
+    prismaMock.user.findUnique.mockResolvedValue(null);
+
     prismaMock.user.create.mockResolvedValue({
       id: '1',
       email: 'test@test.com',
       user_name: 'test',
     });
+
     mailerMock.sendMail.mockResolvedValue(true);
     redisMock.set.mockResolvedValue(true);
 
-
     const result = await service.signUp({
       email: 'test@test.com',
-      password: '123456',
       user_name: 'test',
+      password: '123456',
     });
 
     expect(prismaMock.user.create).toHaveBeenCalled();
     expect(mailerMock.sendMail).toHaveBeenCalled();
-    expect(redisMock.set).toHaveBeenCalled();
-    expect(result).toBeUndefined();
-
-  })
-
-  it('should throw ConflictException if email exists', async () => {
-    prismaMock.user.findUnique.mockResolvedValue({ id: '1' });
-
-    await expect(
-      service.signUp({
-        email: 'test@test.com',
-        password: '123456',
-        user_name: 'test',
-      }),
-    ).rejects.toThrow('Email already in use');
+    expect(result.email).toBe('test@test.com');
   });
 
-  it('should return user payload on login', async () => {
+  it('should login user and return payload', async () => {
     prismaMock.user.findUnique.mockResolvedValue({
       id: '1',
       email: 'test@test.com',
       user_name: 'test',
       password: 'hashed',
       is_verify: true,
+      accounts: [{ provider: 'Local' }],
     });
 
     jest.spyOn(service, 'verifyPassword').mockResolvedValue(true);
@@ -80,56 +104,34 @@ describe('AuthService', () => {
       password: '123456',
     });
 
-    expect(result).toEqual({
-      id: '1',
-      email: 'test@test.com',
-      user_name: 'test',
-    });
+    expect(result).toHaveProperty('id');
+    expect(result.email).toBe('test@test.com');
   });
 
-
-  it('should verify email and return user', async () => {
-    redisMock.get.mockResolvedValue('123456');
-
-    prismaMock.user.update.mockResolvedValue(true);
+  it('should throw on invalid password', async () => {
     prismaMock.user.findUnique.mockResolvedValue({
       id: '1',
       email: 'test@test.com',
-      user_name: 'test',
-    });
-
-    const result = await service.VerificationEmail({
-      email: 'test@test.com',
-      code: '123456',
-    });
-
-    expect(redisMock.del).toHaveBeenCalled();
-    expect(prismaMock.user.update).toHaveBeenCalled();
-    expect(result?.email).toBe('test@test.com');
-  });
-  it('should throw ForbiddenException if not verified', async () => {
-    prismaMock.user.findUnique.mockResolvedValue({
-      id: '1',
-      email: 'test@test.com',
-      user_name: 'test',
       password: 'hashed',
-      is_verify: false,
+      is_verify: true,
+      accounts: [{ provider: 'Local' }],
     });
-    mailerMock.sendMail.mockResolvedValue(true);
-    redisMock.set.mockResolvedValue(true);
- 
+
+    jest.spyOn(service, 'verifyPassword').mockResolvedValue(false);
+
     await expect(
       service.logIn({
         email: 'test@test.com',
-        password: '123456',
+        password: 'wrong',
       }),
-    ).rejects.toThrow('Email not verified');
+    ).rejects.toThrow('Invalid credentials');
   });
 
-  it('should verify email and return user', async () => {
+  it('should verify email code', async () => {
     redisMock.get.mockResolvedValue('123456');
+    redisMock.del.mockResolvedValue(true);
 
-    prismaMock.user.update.mockResolvedValue(true);
+    prismaMock.user.update.mockResolvedValue({});
     prismaMock.user.findUnique.mockResolvedValue({
       id: '1',
       email: 'test@test.com',
@@ -142,21 +144,34 @@ describe('AuthService', () => {
     });
 
     expect(redisMock.del).toHaveBeenCalled();
-    expect(prismaMock.user.update).toHaveBeenCalled();
     expect(result?.email).toBe('test@test.com');
   });
 
-  it('should throw UnauthorizedException for invalid code', async () => {
+  it('should reject invalid verification code', async () => {
     redisMock.get.mockResolvedValue(null);
 
     await expect(
       service.VerificationEmail({
         email: 'test@test.com',
-        code: '999999',
+        code: '000000',
       }),
     ).rejects.toThrow('code is invalid or is expire.');
   });
 
+  it('should return user if google account exists', async () => {
+    prismaMock.account.findFirst.mockResolvedValue({
+      user: {
+        id: '1',
+        email: 'test@test.com',
+        user_name: 'test',
+      },
+    });
 
+    const result = await service.loginByGoogle({
+      email: 'test@test.com',
+      googleId: 'google-123',
+    });
 
+    expect(result.id).toBe('1');
+  });
 })

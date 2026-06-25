@@ -86,39 +86,175 @@ export class AuthService {
     }
 
     async signUp(data: SignUpData) {
-        const existingUser = await this.Repo.user.findUnique({ where: { email: data.email } });
-        if (existingUser) throw new ConflictException('Email already in use');
-        data.password = await this.genHashpassword(data.password);
-        const user = await this.Repo.user.create({ data });
-        const token = this.generateVerificationToken();
-        await this.sendVerificationCode({ email: data.email, code: token });
+        const existingUser = await this.Repo.user.findUnique({
+            where: { email: data.email }
+        });
 
+        if (existingUser) {
+            throw new ConflictException("Email already in use");
+        }
+
+        const hashedPassword = await this.genHashpassword(data.password);
+
+        const user = await this.Repo.user.create({
+            data: {
+                email: data.email,
+                user_name: data.user_name,
+                password: hashedPassword,
+
+                accounts: {
+                    create: {
+                        provider: "Local",
+                    }
+                }
+            },
+            include: {
+                accounts: true
+            }
+        });
+
+        const code = this.generateVerificationToken();
+
+        await this.sendVerificationCode({
+            email: user.email,
+            code
+        });
+
+        return user;
     }
 
+
     async logIn({ email, password }: logInType): Promise<TokenPayloadType> {
-        const user = await this.Repo.user.findUnique({ where: { email } });
+
+        const user = await this.Repo.user.findUnique({
+            where: { email },
+            include: { accounts: true },
+        });
 
         if (!user) {
             throw new UnauthorizedException('Invalid credentials');
         }
 
+
+        const localAccount = user.accounts.find(
+            acc => acc.provider === "Local"
+        );
+
+        if (!localAccount) {
+            throw new UnauthorizedException(
+                "This account uses Google Sign-In."
+            );
+        }
+
+        if (!user.password) {
+            throw new UnauthorizedException('Invalid credentials');
+        }
+
+        const isValid = await this.verifyPassword(
+            password,
+            user.password
+        );
+
+        if (!isValid) {
+            throw new UnauthorizedException('Invalid credentials');
+        }
+
         if (!user.is_verify) {
             const token = this.generateVerificationToken();
-            await this.sendVerificationCode({ email, code: token });
+
+            await this.sendVerificationCode({
+                email,
+                code: token,
+            });
+
             throw new ForbiddenException('Email not verified');
-        }
-        if (user.password) {
-            const isVaild = await this.verifyPassword(password, user.password)
-            if (!isVaild) {
-                throw new UnauthorizedException('Invalid credentials');
-            }
         }
 
         return {
             id: user.id,
             email: user.email,
-            user_name: user.user_name
-        }
+            user_name: user.user_name,
+        };
     }
 
+    async loginByGoogle(profile: any): Promise<TokenPayloadType> {
+
+        const email = profile.email;
+
+        if (!email) {
+            throw new UnauthorizedException("Google email not found");
+        }
+
+        // 1. check google account
+        const account = await this.Repo.account.findFirst({
+            where: {
+                provider: "Google",
+                providerId: profile.googleId,
+            },
+            include: { user: true },
+        });
+
+        if (account) {
+            return {
+                id: account.user.id,
+                email: account.user.email,
+                user_name: account.user.user_name,
+            };
+        }
+
+        // 2. check email collision
+        let user = await this.Repo.user.findUnique({
+            where: { email },
+        });
+
+        if (user) {
+
+            const existingAccount =
+                await this.Repo.account.findFirst({
+                    where: {
+                        userId: user.id,
+                        provider: "Google",
+                    },
+                });
+
+            if (!existingAccount) {
+                await this.Repo.account.create({
+                    data: {
+                        userId: user.id,
+                        provider: "Google",
+                        providerId: profile.googleId,
+                    },
+                });
+            }
+
+            return {
+                id: user.id,
+                email: user.email,
+                user_name: user.user_name,
+            };
+        }
+
+        // 3. create new user
+        user = await this.Repo.user.create({
+            data: {
+                email,
+                user_name: `${profile.firstName} ${profile.lastName}`,
+                is_verify: true,
+
+                accounts: {
+                    create: {
+                        provider: "Google",
+                        providerId: profile.googleId,
+                    },
+                },
+            },
+        });
+
+
+        return {
+            id: user.id,
+            email: user.email,
+            user_name: user.user_name,
+        };
+    }
 }

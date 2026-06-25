@@ -6,10 +6,18 @@ import { CastType } from "../../types/person"
 import PersonCard from "./PersonCard"
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import { useLocale } from "next-intl"
 function CastCarousel({ data }: { data: CastType[] }) {
+  const locale = useLocale()
+
+  const dir = locale == "ar" ? "rtl" : "ltr"
   const [emblaRef, emblaApi] = useEmblaCarousel({
     align: "start",
-    dragFree: true
+    dragFree: true,
+    direction: dir,
+
+    axis: "x",
+
   })
 
   const scrollPrev = useCallback(() => {

@@ -6,7 +6,8 @@ import {
     Stack,
     TextField,
     Typography,
-    Link
+    Link,
+    useTheme
 } from "@mui/material";
 
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
@@ -17,17 +18,18 @@ import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { useMutation } from "@tanstack/react-query";
-import { AxiosError } from "axios";
+import axios from "axios";
 
 import { login, } from "../api/AuthApi";
 import { loginSchema, loginSchemaType } from "../validators/signin.validator";
 
-import SubmitButton from "./SubmitButton";
+import SubmitButton from "./button/SubmitButton";
 import ErrorField from "./ErrorField";
 import { AuthContext, AuthContextType } from "@/app/[locale]/(auth)/layout";
 import VerificationCodeForm from "./VerificationCodeForm";
 import { errorMessage } from "@/utils/message";
 import { useRouter } from "next/navigation";
+import { queryClient } from "@/design-system/components/providers";
 
 type ErrorResponse = {
     message: string | string[];
@@ -36,7 +38,9 @@ type ErrorResponse = {
 };
 
 function LoginForm() {
-    const router=useRouter()
+    const router = useRouter()
+    const theme = useTheme()
+    const isArabic = theme.direction == "rtl"
     const [showPassword, setShowPassword] = useState(false);
     const { authState: { pending_Verification }, setAuthState } = use<AuthContextType>(AuthContext)
     const {
@@ -52,28 +56,45 @@ function LoginForm() {
         }
     });
 
-    const { mutateAsync, isPending } = useMutation({
+    const { mutate, isPending } = useMutation({
         mutationFn: login,
+
+       async onSuccess() {
+            await queryClient.invalidateQueries({
+                queryKey: ["me"],
+            });
+
+            router.push("/en/");
+        },
+
+        onError(error, variables) {
+            if (!axios.isAxiosError<ErrorResponse>(error)) {
+                errorMessage("Something went wrong");
+                return;
+            }
+
+            if (error.response?.data?.statusCode === 403) {
+                setAuthState(prev => ({
+                    ...prev,
+                    email: variables.email,
+                    pending_Verification: true,
+                }));
+
+                return;
+            }
+
+            const message = error.response?.data?.message;
+
+            errorMessage(
+                Array.isArray(message)
+                    ? message.join(", ")
+                    : message || "Login failed"
+            );
+        }
     });
 
     const submit = async (data: loginSchemaType) => {
-        try {
-            await mutateAsync(data);
-            router.push("/en/")
-        } catch (error) {
-            const axiosError = error as AxiosError<ErrorResponse>;
-            if (axiosError.response?.data.statusCode == 403) {
-               return setAuthState({ email: data.email, pending_Verification: true })
-            }
-    
-            const message = axiosError.response?.data?.message;
-
-            if (Array.isArray(message)) {
-                console.log(message.join(", "));
-            } else {
-                errorMessage(message || "Login failed");
-            }
-        }
+        await mutate(data);
     };
 
     if (pending_Verification) {
@@ -81,9 +102,10 @@ function LoginForm() {
     }
     return (
         <form onSubmit={handleSubmit(submit)}>
-            <Stack spacing={2}
+            <Stack
+                spacing={2}
                 direction={"column"}
-                sx={{ alignContent: "center" }} >
+                sx={{ alignContent: "center", width: "100%" }} >
                 <Typography variant="h4">Login</Typography>
 
                 <Controller
@@ -93,8 +115,9 @@ function LoginForm() {
                         return <>
                             <TextField
                                 {...field}
-                                label="Email"
+                                placeholder="Email"
                                 error={!!errors.email}
+
                             />
                             <ErrorField message={errors.email?.message as string} />
 
@@ -109,13 +132,13 @@ function LoginForm() {
                         return <>
                             <TextField
                                 {...field}
-                                label="Password"
+                                placeholder="Password"
                                 type={showPassword ? "text" : "password"}
                                 error={!!errors.password}
                                 slotProps={{
                                     input: {
                                         endAdornment: (
-                                            <InputAdornment position="end">
+                                            <InputAdornment position={isArabic ? "start" : "end"}>
                                                 <IconButton
                                                     onClick={() => setShowPassword((p) => !p)}
                                                 >
@@ -136,15 +159,14 @@ function LoginForm() {
                     }}
                 />
 
-                <SubmitButton disabled={isPending} >
-                    {isPending ? "Login..." : "Login"}
+                <SubmitButton loading={isPending} >
+                    Login
                 </SubmitButton>
 
                 <Typography variant="h6">
                     I dont have an account
                     <Link href={"/en/signup"} className="font-bold text-sm">  sign up </Link>
                 </Typography>
-
             </Stack>
         </form>
     );

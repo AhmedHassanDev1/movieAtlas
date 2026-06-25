@@ -42,3 +42,28 @@ export type ViewType = {
     directors: CreditType[];
     genres: GenreType[]
 } 
+
+
+export type TitleType = "movie" | "tv";
+
+export type SortBy =
+  | "popularity.desc"
+  | "popularity.asc"
+  | "rating.desc"
+  | "rating.asc"
+  | "releaseDate.desc"
+  | "releaseDate.asc";
+
+export interface GetTitlesParams {
+  type?: TitleType;
+
+  genreIds?: number[];
+
+  sortBy?: SortBy;
+
+  minRating?: number;
+
+  page?: number;
+
+  limit?: number;
+}

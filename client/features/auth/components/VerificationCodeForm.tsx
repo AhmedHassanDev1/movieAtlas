@@ -1,15 +1,16 @@
 "use client";
 
 import { AuthContext, AuthContextType } from "@/app/[locale]/(auth)/layout";
-import { Box, TextField, Stack, Typography, Paper, Button } from "@mui/material";
+import { TextField, Stack, Typography, Paper } from "@mui/material";
 import { useMutation } from "@tanstack/react-query";
 import { use, useEffect, useRef } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { emailVerification } from "../api/AuthApi";
 import { AxiosError } from "axios";
-import { errorMessage, errorResponse } from "@/utils/message";
+import { errorMessage } from "@/utils/message";
 import { useRouter } from "next/navigation";
-import SubmitButton from "./SubmitButton";
+import SubmitButton from "./button/SubmitButton";
+import { useLocale } from "next-intl";
 
 type FormData = {
     code: string[];
@@ -17,8 +18,17 @@ type FormData = {
 
 export default function VerificationCode() {
     const router = useRouter()
-    const { mutateAsync, isPending, isIdle } = useMutation({
-        mutationFn: emailVerification
+    const locale=useLocale()
+    const { mutate, isPending, isIdle } = useMutation({
+        mutationFn: emailVerification,
+        onError: (error) => {
+            const axiosError = error as AxiosError
+            errorMessage(axiosError)
+        },
+        onSuccess: () => {
+            router.replace(`/${locale}`)
+        },
+
     })
     const { control, setValue, watch } = useForm<FormData>({
         defaultValues: {
@@ -27,7 +37,7 @@ export default function VerificationCode() {
     });
 
     const inputsRef = useRef<Array<HTMLInputElement | null>>([]);
-    const { authState: { pending_Verification, email } } = use<AuthContextType>(AuthContext)
+    const { authState: { email } } = use<AuthContextType>(AuthContext)
 
     const handleChange = (value: string, index: number) => {
         if (!/^\d?$/.test(value)) return;
@@ -52,19 +62,11 @@ export default function VerificationCode() {
         }
     };
 
-    const verfiy = async (email: string, code: string) => {
-        console.log(email, code);
-
-
-        try {
-            const res = await mutateAsync({ email, code })
-            console.log(res.data);
-            router.replace("/en/")
-        } catch (error) {
-            const axiosError = error as AxiosError<errorResponse>
-            errorMessage(axiosError)
-
-        }
+    const verfiy = (email: string, code: string) => {
+        mutate({
+            email,
+            code
+        })
 
     }
     useEffect(() => {
@@ -75,6 +77,13 @@ export default function VerificationCode() {
         }
 
     }, [watch("code")])
+
+    const handleClick = () => {
+        const current = watch("code").filter((el) => el)
+        if (current.length == 6 && email) {
+            verfiy(email, current.join(""))
+        }
+    }
     return (
         <Paper sx={{ padding: 4, display: "flex", flexDirection: "column", alignItems: "center", gap: 3 }} >
             <Typography
@@ -118,8 +127,8 @@ export default function VerificationCode() {
                 )}
             />
             <SubmitButton
-                disabled={isPending}
-          
+                loading={isPending}
+                onClick={handleClick}
             >
                 {isPending ? "verifing..." : "verify"}
             </SubmitButton>

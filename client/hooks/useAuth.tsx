@@ -1,13 +1,17 @@
-import { GetMe } from "@/features/user/api/user"
+import { GetMe } from "@/features/user/api/client"
 import { useQuery } from "@tanstack/react-query"
+
 
 
 
 function useAuth() {
   return useQuery({
+    queryKey: ["me"],
     queryFn: GetMe,
-    queryKey: ["get me"]
-  })
+    retry: false,
+    refetchOnWindowFocus: false,
+    staleTime: 5 * 60 * 1000,
+  });
 }
 
-export default useAuth
+export default useAuth;

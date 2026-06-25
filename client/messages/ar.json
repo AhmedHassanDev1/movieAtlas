@@ -1,0 +1,64 @@
+{
+  "global": {
+    "menu": "القائمة",
+    "watchlist": "قائمة المشاهدة",
+    "popular": "الأكثر شعبية",
+    "interests": "الاهتمامات"
+  },
+  "button": {
+    "addToWatchList": "أضف إلى قائمة المشاهدة",
+    "watchTrailer": "مشاهدة الإعلان",
+    "seeMore": "عرض المزيد",
+    "more": "المزيد",
+    "rate": "قيّم",
+    "submit": "إرسال",
+    "editeProfile": "تعديل الملف الشخصي",
+    "edite": "تعديل",
+    "removeRate": "إزالة التقييم",
+    "watched": "تحديد كمشاهد",
+    "unWatched": "مشاهدة",
+    "addToWatchlist": "أضف إلى قائمة المشاهدة",
+    "removeFromWatchList": "في قائمة المشاهدة",
+    "logout": "تسجيل الخروج"
+  },
+  "user": {
+    "editeProfile": "تعديل الملف الشخصي",
+    "yourWatchList": "قائمة المشاهدة",
+    "watchlistDescription": "الأفلام والمسلسلات التي ترغب في مشاهدتها."
+  },
+  "title": {
+    "movie": "الأفلام",
+    "tv": "المسلسلات",
+    "topRatingMovies": "أفضل 250 فيلمًا",
+    "mostPopularMovies": "الأفلام الأكثر شعبية",
+    "topRatingTV": "أفضل 250 مسلسلًا",
+    "mostPopularTV": "المسلسلات الأكثر شعبية",
+    "titles": "العناوين",
+    "movies&TV": "الأفلام والمسلسلات",
+    "cast": "طاقم التمثيل",
+    "reviews": "المراجعات",
+    "sectionReviewsTitle": "مراجعات المستخدمين",
+    "videos": "الفيديوهات",
+    "images": "الصور",
+    "trending": "الرائج",
+    "topRated": "الأعلى تقييمًا",
+    "genres": "الاهتمامات الشائعة",
+    "nowPlay": "يعرض الآن في السينمات",
+    "yourRate": "تقييمك",
+    "actors": "الممثلون",
+    "directors": "المخرجون",
+    "similarTitles": "المزيد مثل هذا",
+    "noRatingYet": "لم يتم تقييم هذا العمل بعد. شارك تقييمك وأخبر المجتمع برأيك.",
+    "noWatchListYet": "قائمة المشاهدة فارغة. ابدأ بإضافة الأفلام والمسلسلات لمتابعة ما تريد مشاهدته لاحقًا."
+  },
+  "interaction": {
+    "rating": "التقييمات",
+    "watchList": "قائمة المشاهدة",
+    "watched": "سجل المشاهدة",
+    "reviews": "المراجعات",
+    "more": "المزيد"
+  },
+  "interest": {
+    "genre": "النوع"
+  }
+}

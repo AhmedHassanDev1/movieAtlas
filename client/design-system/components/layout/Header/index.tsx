@@ -4,23 +4,29 @@ import Logo from "../../ui/Logo"
 import MenuButton from "./button/MenuButton"
 import WatchListButton from "./button/WatchListButton"
 import UserChips from "./UserChips"
+import SearchBar from "../../../../features/search/components/searchBar"
+import LangaugeButton from "./button/LangaugeButton"
 
 
 
-function header() {
+
+function Header() {
+
+
     return (
         <AppBar
             position="sticky">
-            <Toolbar sx={{ justifyContent: "space-between" }}>
+            <Toolbar sx={{ justifyContent: "space-between", alignItems: "center", gap: 1 }}>
                 {/* right section */}
                 <Grid
                     container
                     sx={{
+                        display: "flex",
                         gap: 1,
                         alignItems: "center"
                     }} >
                     <Grid >
-                        <Logo />
+                        <Logo  />
                     </Grid>
                     <Grid sx={{
                         order: {
@@ -32,23 +38,38 @@ function header() {
                     </Grid>
                 </Grid>
 
-                {/* search section */}
 
 
                 {/* Left Section */}
                 <Stack direction={"row"}
                     sx={{
-                        borderInlineStart: "1px solid",
-                        paddingInlineStart: 2,
-                        borderInlineColor: "gray",
-                        alignItems: "center"
+                        gap: 1,
+                        flex: 1,
+                        alignItems: "center",
+                        justifyContent:"end" 
                     }}>
-                    <WatchListButton />
-                    <UserChips />
+                    {/* search section */}
+                    <SearchBar />
+                    <Box
+                        sx={{
+                            display: "flex",
+                            gap: 1,
+                            flexWrap:"nowrap",
+                            alignItems: 'center',
+                            borderInlineStart: "1px solid",
+                            paddingInlineStart: 2,
+                            borderInlineColor: "gray",
+                        }}>
+
+                        <WatchListButton />
+                        <UserChips />
+                        <LangaugeButton/>
+                    </Box>
+
                 </Stack>
             </Toolbar>
         </AppBar>
     )
 }
 
-export default header
+export default Header

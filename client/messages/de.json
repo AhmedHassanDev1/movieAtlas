@@ -1,0 +1,64 @@
+{
+  "global": {
+    "menu": "Menü",
+    "watchlist": "Merkliste",
+    "popular": "Beliebt",
+    "interests": "Interessen"
+  },
+  "button": {
+    "addToWatchList": "Zur Merkliste hinzufügen",
+    "watchTrailer": "Trailer ansehen",
+    "seeMore": "Mehr anzeigen",
+    "more": "mehr",
+    "rate": "Bewerten",
+    "submit": "Senden",
+    "editeProfile": "Profil bearbeiten",
+    "edite": "Bearbeiten",
+    "removeRate": "Bewertung entfernen",
+    "watched": "Als gesehen markieren",
+    "unWatched": "Ansehen",
+    "addToWatchlist": "Zur Merkliste hinzufügen",
+    "removeFromWatchList": "In der Merkliste",
+    "logout": "Abmelden"
+  },
+  "user": {
+    "editeProfile": "Profil bearbeiten",
+    "yourWatchList": "Merkliste",
+    "watchlistDescription": "Filme und Serien, die du sehen möchtest."
+  },
+  "title": {
+    "movie": "Film",
+    "tv": "Serien",
+    "topRatingMovies": "Top 250 Filme",
+    "mostPopularMovies": "Beliebteste Filme",
+    "topRatingTV": "Top 250 Serien",
+    "mostPopularTV": "Beliebteste Serien",
+    "titles": "Titel",
+    "movies&TV": "Filme & Serien",
+    "cast": "Besetzung",
+    "reviews": "Bewertungen",
+    "sectionReviewsTitle": "Nutzerbewertungen",
+    "videos": "Videos",
+    "images": "Bilder",
+    "trending": "Trend",
+    "topRated": "Bestbewertet",
+    "genres": "Beliebte Interessen",
+    "nowPlay": "Im Kino",
+    "yourRate": "Deine Bewertung",
+    "actors": "Schauspieler",
+    "directors": "Regisseure",
+    "similarTitles": "Ähnlich wie",
+    "noRatingYet": "Dieser Titel wurde noch nicht bewertet. Teile deine Meinung.",
+    "noWatchListYet": "Deine Merkliste ist leer. Füge Filme und Serien hinzu."
+  },
+  "interaction": {
+    "rating": "Bewertungen",
+    "watchList": "Merkliste",
+    "watched": "Verlauf",
+    "reviews": "Rezensionen",
+    "more": "mehr"
+  },
+  "interest": {
+    "genre": "Genre"
+  }
+}

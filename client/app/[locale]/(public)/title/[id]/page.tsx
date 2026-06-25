@@ -1,30 +1,48 @@
 
+import ReviewSection from "@/features/title/components/ReviewsSection/ReviewSection"
 import CastSection from "@/features/title/components/CastSection"
 import CastSkeletonGroup from "@/features/title/components/CastSection/CastSkeleton"
 import ImagesSection from "@/features/title/components/ImagesSection"
-import ReviewsSection from "@/features/title/components/ReviewsSection"
+
 import TitleHeroSection from "@/features/title/components/titleHeroSection"
 import VideoSection from "@/features/title/components/videoSection"
-import { ViewType } from "@/features/title/types/title"
-import { Box } from "@mui/material"
-import { notFound } from "next/navigation"
+
+import { Box, Stack } from "@mui/material"
+
 import { Suspense } from "react"
+import { getTitle, getTitleView } from "@/features/title/api/server"
+import { genImageUrl } from "@/utils/url"
+import SimilarSection from "@/features/title/components/SimilarSection"
 
-async function getTitleView(id: string): Promise<ViewType> {
-
-  const res = await fetch(`${process.env.API_URL}/title/${id}/view`, {
-    next: { revalidate: 60 }
-  })
-
-  if (!res.ok) return notFound()
-  const data = await res.json()
-  return data
-}
 
 type Props = {
   params: Promise<{ id: string }>
 
 }
+
+export async function generateMetadata({ params }: Props) {
+  const { id } = await params
+  if (!id) return
+  try {
+    const title = await getTitle(id);
+    if (!title) return
+    const poster = genImageUrl(title?.poster_path, "poster")
+    const backdrop = genImageUrl(title?.backdrop_path, "backdrop")
+       
+    return {
+      title: `${title.title} - Watch Details | Movie Atlas`,
+      description: title.overview,
+      openGraph: {
+        title: title.title,
+        images: [poster,backdrop],
+      },
+    };
+  } catch (error) {
+    return;
+  }
+}
+
+
 
 async function page({ params }: Props) {
   const { id } = await params
@@ -33,7 +51,7 @@ async function page({ params }: Props) {
 
   return (
 
-    <div className="max-w-full  min-h-screen h-fit">
+    <Box sx={{width:"100%",minHeight:"100vh"}}>
       {/* Hero section */}
       <TitleHeroSection data={view} />
 
@@ -62,15 +80,20 @@ async function page({ params }: Props) {
         </Suspense>
 
         {/* reviews */}
-        {/* <Suspense fallback={<CastSkeletonGroup />}>
-          <ReviewsSection titleId={id} />
-        </Suspense> */}
+        <Suspense fallback={<CastSkeletonGroup />}>
+          <ReviewSection titleId={id} />
+        </Suspense>
 
         {/* similar title*/}
+
+        <Suspense fallback={<CastSkeletonGroup />}>
+          <SimilarSection titleId={id} />
+        </Suspense>
       </Box>
 
-    </div>
+    </Box>
   )
 }
 
 export default page
+

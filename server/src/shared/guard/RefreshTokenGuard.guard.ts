@@ -4,6 +4,7 @@ import { JwtService } from "@nestjs/jwt";
 import { IS_PUBLIC_KEY } from "../decorators/publicRoute.decorator";
 import { ConfigService } from "@nestjs/config";
 import { TokenPayloadType } from "src/auth/auth.types";
+import { IS_REFRESH } from "../decorators/RefreshRoute.decorator";
 
 
 @Injectable()
@@ -18,8 +19,16 @@ export class RefreshTokenGuard implements CanActivate {
             IS_PUBLIC_KEY,
             [context.getHandler(), context.getClass()],
         );
-        const isRefreshTokenHandler = context.getHandler().name == "refreshToken"
-        if (isPublic && !isRefreshTokenHandler) return true
+
+        const isRefresh =
+            this.reflector.getAllAndOverride<boolean>(
+                IS_REFRESH,
+                [context.getHandler(), context.getClass()]
+            );
+
+
+
+        if (isPublic && !isRefresh) return true
 
         const req = context.switchToHttp().getRequest()
         const refreshToken = req.cookies?.refreshToken

@@ -1,33 +1,30 @@
-
-
+"use client"
 import { TitleDetails } from '@/features/title/types/title'
 import { genImageUrl } from '@/utils/url'
 import { Box, Paper, Typography } from '@mui/material'
-import { grey, yellow } from '@mui/material/colors'
+import { grey } from '@mui/material/colors'
 import Image from 'next/image'
 import Link from 'next/link'
-import GradeIcon from '@mui/icons-material/Grade';
-import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
-import BookmarkAddedIcon from '@mui/icons-material/BookmarkAdded';
-import AddToWatchListButton from '../buttons/ToggleWatchListButton'
-import { parseRunTime } from '@/utils/time'
+import WatchListButton from '../../../../Interactions/components/ui/buttons/WatchListButton'
+import { GetFullYear, parseRunTime } from '@/utils/time'
+import WatchTrailer from '../../../../Interactions/components/ui/buttons/WatchTrailer'
+import Rate from './Rate'
 
-import WatchTrailer from '../buttons/WatchTrailer'
+import RateButton from '@/features/Interactions/components/ui/buttons/RateButton'
+import { useLocale } from 'next-intl'
 
 function MovieCard({ title }: { title: TitleDetails }) {
   const posterUrl = genImageUrl(title.poster_path, "poster")
   const runtime = parseRunTime(title?.runtime)
+  const local = useLocale()
   return (
     <Paper
       sx={{
         flex: "0 0 auto",
-        width: {
-          xs: 200,
-          sm: 250,
-          md: 320
-        },
+        width:"100%",
+        maxWidth:350,
         aspectRatio: "2 / 3",
-        borderRadius: 1,
+        borderRadius: "0px 10px 10px 10px",
         overflow: "hidden",
         cursor: "pointer",
         background: grey[900],
@@ -39,13 +36,15 @@ function MovieCard({ title }: { title: TitleDetails }) {
       }}
     >
       <Link
-        href={`/en/title/${title.id}`}
+        href={`/${local}/title/${title.id}`}
+        scroll={true}
       >
         {posterUrl && (
           <Image
             src={posterUrl}
             fill
             alt={`poster image for ${title.title}`}
+       
             style={{
               objectFit: "cover",
               objectPosition: "center",
@@ -66,7 +65,7 @@ function MovieCard({ title }: { title: TitleDetails }) {
             gap: 1,
             flexDirection: "column",
             justifyContent: "flex-end",
-            p: 3,
+            p: 2,
             backdropFilter: "blur(10px)",
             background: "rgba(255,255,255,.2)",
             transition: "0.3s ease",
@@ -88,20 +87,10 @@ function MovieCard({ title }: { title: TitleDetails }) {
               gap: 1,
 
             }} >
-            <Typography
-              variant='subtitle1'
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                gap: 1,
-              }}>
-              {title.vote_average?.toFixed(1)}
-              <GradeIcon sx={{ color: yellow[900] }} />
-            </Typography>
-
+            <Rate rate={title.vote_average} />
             {title.release_date && (
               <Typography>
-                {new Date(title.release_date).getFullYear()}
+                {GetFullYear(title.release_date)}
               </Typography>
             )}
             {runtime && (
@@ -109,6 +98,13 @@ function MovieCard({ title }: { title: TitleDetails }) {
                 {runtime}
               </Typography>
             )}
+
+            <RateButton
+              titleId={title.id}
+              onlyIcon={true}
+              titleName={title.title}
+            />
+
           </Box>
           <WatchTrailer />
         </Box>
@@ -117,12 +113,12 @@ function MovieCard({ title }: { title: TitleDetails }) {
       <Box
         sx={{
           position: "absolute",
-          insetInlineStart: 3,
+          insetInlineStart: 0,
           top: 0,
         }}>
-        <AddToWatchListButton
-          activeIcon={<BookmarkAddedIcon sx={{ fontSize: "40px", color: yellow[800] }} />}
-          inactiveIcon={<BookmarkBorderIcon sx={{ fontSize: "40px", color: yellow[800] }} />}
+        <WatchListButton
+          titleId={title.id}
+          type='icon'
         />
       </Box>
 

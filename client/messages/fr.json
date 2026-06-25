@@ -1,0 +1,64 @@
+{
+  "global": {
+    "menu": "Menu",
+    "watchlist": "Liste de suivi",
+    "popular": "Populaire",
+    "interests": "Intérêts"
+  },
+  "button": {
+    "addToWatchList": "Ajouter à la liste",
+    "watchTrailer": "Voir la bande-annonce",
+    "seeMore": "Voir plus",
+    "more": "plus",
+    "rate": "Évaluer",
+    "submit": "Envoyer",
+    "editeProfile": "Modifier le profil",
+    "edite": "Modifier",
+    "removeRate": "Supprimer l'évaluation",
+    "watched": "Marquer comme vu",
+    "unWatched": "Regarder",
+    "addToWatchlist": "Ajouter à la liste de suivi",
+    "removeFromWatchList": "Dans la liste",
+    "logout": "Déconnexion"
+  },
+  "user": {
+    "editeProfile": "Modifier le profil",
+    "yourWatchList": "Liste de suivi",
+    "watchlistDescription": "Films et séries que vous souhaitez regarder."
+  },
+  "title": {
+    "movie": "Film",
+    "tv": "Séries",
+    "topRatingMovies": "Top 250 films",
+    "mostPopularMovies": "Films les plus populaires",
+    "topRatingTV": "Top 250 séries",
+    "mostPopularTV": "Séries les plus populaires",
+    "titles": "Titres",
+    "movies&TV": "Films & séries",
+    "cast": "Distribution",
+    "reviews": "Avis",
+    "sectionReviewsTitle": "Avis des utilisateurs",
+    "videos": "Vidéos",
+    "images": "Images",
+    "trending": "Tendance",
+    "topRated": "Mieux notés",
+    "genres": "Intérêts populaires",
+    "nowPlay": "En salle",
+    "yourRate": "Votre note",
+    "actors": "Acteurs",
+    "directors": "Réalisateurs",
+    "similarTitles": "Similaire à",
+    "noRatingYet": "Ce titre n’a pas encore été noté. Partagez votre avis.",
+    "noWatchListYet": "Votre liste est vide. Ajoutez des films et séries."
+  },
+  "interaction": {
+    "rating": "Notes",
+    "watchList": "Liste de suivi",
+    "watched": "Historique",
+    "reviews": "Avis",
+    "more": "plus"
+  },
+  "interest": {
+    "genre": "Genre"
+  }
+}

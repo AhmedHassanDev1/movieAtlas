@@ -1,19 +1,64 @@
 {
     "global": {
         "menu": "Menu",
-        "watchlist":"Watch List"
+        "watchlist": "Watch List",
+        "popular": "Popular",
+        "interests": "interests"
     },
-    "button":{
-        "addToWatchList":"add WatchList",
-        "watchTrailer":"watch Trailer"
+    "button": {
+        "addToWatchList": "add WatchList",
+        "watchTrailer": "watch Trailer",
+        "seeMore": "Sea More",
+        "more": "more",
+        "rate": "Rate",
+        "submit": "Submit",
+        "editeProfile": "Edite Profile",
+        "edite": "Edite",
+        "removeRate": "Remove Rate",
+        "watched": "Mark as watched",
+        "unWatched": "Watch",
+        "addToWatchlist": "Add to watch list",
+        "removeFromWatchList": "in watchlist",
+        "logout":"logout"
     },
-    "user": {},
+    "user": {
+        "editeProfile": "Edite Profile",
+        "yourWatchList": "WatchList",
+        "watchlistDescription": "Movies and TV shows you want to watch."
+    },
     "title": {
+        "movie": "Movie",
+        "tv": "TV Shows",
+        "topRatingMovies": "Top 250 Movies",
+        "mostPopularMovies": "Most popular Movies",
+        "topRatingTV": "Top 250 TV Shows",
+        "mostPopularTV": "Most popular TV Shows",
+        "titles": "Titles",
+        "movies&TV": "Movies & TV shows",
         "cast": "Cast",
         "reviews": "Reviews",
+        "sectionReviewsTitle": "User Reviews",
         "videos": "Videos",
-        "similarTitles": "Similar Titles",
         "images": "Images",
-        "trending":"trending"
+        "trending": "trending",
+        "topRated": "top Rated",
+        "genres": "Popular Interests",
+        "nowPlay": "In Theaters",
+        "yourRate": "Your Rate",
+        "actors": "Actors",
+        "directors": "Directors",
+        "similarTitles": "More like this",
+        "noRatingYet":"This title hasn't been rated yet.Share your rating and let the community know what you think.",
+        "noWatchListYet":"Your watchlist is empty. Start adding movies and TV shows to keep track of what you want to watch next."
+    },
+    "interaction": {
+        "rating": "Ratings",
+        "watchList": "Watchlist",
+        "watched": "Watched History",
+        "reviews": "Reviews",
+        "more": "more"
+    },
+    "interest": {
+        "genre": "Genre"
     }
 }

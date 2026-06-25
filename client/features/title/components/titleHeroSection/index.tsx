@@ -1,6 +1,6 @@
-"use client"
 
-import { Box, Button, Grid, Stack, Typography } from "@mui/material"
+
+import { Box, Grid, Stack, Typography } from "@mui/material"
 import { ViewType } from "../../types/title"
 import BackDrop from "./BackDrop"
 import GradeIcon from '@mui/icons-material/Grade';
@@ -8,17 +8,19 @@ import TitleActionButton from "./TitleActionButton";
 import Divider from '@mui/material/Divider';
 import GenresList from "./GenresList";
 import Poster from "./Poster";
-import ToggleRateButton from "../ui/buttons/ToggleRateButton";
-import StarIcon from '@mui/icons-material/Star';
-import StarBorderIcon from '@mui/icons-material/StarBorder';
+import RateButton from "../../../Interactions/components/ui/buttons/RateButton";
+import {Fragment} from "react";
+import { getTranslations } from "next-intl/server";
+import { notFound } from "next/navigation";
 
-function TitleHeroSection({ data }: { data: ViewType }) {
+async function TitleHeroSection({ data }: { data: ViewType|null }) {
+  if(!data) return notFound()
   const { details } = data
   const { overview, release_date, media_type, vote_average } = details
   const directors = data.directors.map(el => el.person.name)
   const actors = data.actors.map(el => el.person.name)
   const release_year = (new Date(release_date)).getFullYear()
-
+  const t =await getTranslations("title")
 
 
   return (
@@ -56,7 +58,7 @@ function TitleHeroSection({ data }: { data: ViewType }) {
               component={"div"}
               sx={{
                 width: "60px",
-                height: "1px",
+                height: "3px",
                 backgroundColor: "primary.main",
               }}>
             </Box>
@@ -92,34 +94,19 @@ function TitleHeroSection({ data }: { data: ViewType }) {
             </Typography>
 
             <Dot />
-            <ToggleRateButton>
-              {(state) => (
-                <Box
-                sx={{
-                  display:"flex",
-                  gap:1,
-                  cursor:"pointer",
-                  alignItems:"center",
-                  color:"primary.main"
-                }}>
-                {state?<StarIcon/>:<StarBorderIcon/>}
-                  <Typography
-                      variant="subtitle2"
-                      sx={{
-                        wordBreak: "keep-all",
-                        fontWeight: 700,
-                        fontSize: "18px",
-                        
-                      }}>
-                      Rate
-                    </Typography>
-                </Box>
-              )}
-            </ToggleRateButton>
+            <RateButton
+              titleId={data.details.id}
+              onlyIcon={false}
+              titleName={data.details.title}
+            />
           </Box>
           <GenresList genres={data.genres} />
-          <Typography variant="h6" color="secondary">{overview}</Typography>
-          <TitleActionButton />
+          <Typography
+           variant="h5" 
+           color="secondary"
+           sx={{fontWeight:400}}
+           >{overview}</Typography>
+          <TitleActionButton titleId={data.details.id} />
           <Divider orientation="horizontal" />
           <Box>
             <Stack
@@ -129,15 +116,26 @@ function TitleHeroSection({ data }: { data: ViewType }) {
                 alignItems: "center"
               }}>
               <Typography
-                variant="subtitle1"
+                variant="subtitle2"
                 color="secondary"
-                sx={{ fontWeight: 500 }}
+                sx={{ fontWeight: 500,textTransform:"uppercase"  }}
               >
-                DIRECTORS
+                  {t("directors")}
               </Typography>
-              <Typography variant="subtitle2">
-                {directors.join(".")}
-              </Typography>
+              {directors.slice(0, 2).map((el, ind, arr) => (
+                <Fragment  key={ind}>
+                  {ind > 0 && <Dot />}
+                  <div >
+                    <Typography
+                     
+                      variant="subtitle1"
+                    >
+                      {el}
+                    </Typography>
+                    {ind + 1 != arr.length && <Dot />}
+                  </div>
+                </Fragment>
+              ))}
             </Stack>
             <Stack
               direction={"row"}
@@ -148,20 +146,23 @@ function TitleHeroSection({ data }: { data: ViewType }) {
               <Typography
                 variant="subtitle1"
                 color="secondary"
-                sx={{ fontWeight: 500 }}
+                sx={{ fontWeight: 500,textTransform:"uppercase" }}
               >
-                ACTORS
+                {t("actors")}
               </Typography>
               {actors.slice(0, 2).map((el, ind, arr) => (
-                <div key={ind}>
-                  <Typography
-                    key={ind}
-                    variant="subtitle1"
-                  >
-                    {el}
-                  </Typography>
-                  {ind + 1 != arr.length && <Dot />}
-                </div>
+                <Fragment  key={ind}>
+                  {ind > 0 && <Dot />}
+                  <div key={ind}>
+                    <Typography
+                      key={ind}
+                      variant="subtitle1"
+                    >
+                      {el}
+                    </Typography>
+                    {ind + 1 != arr.length && <Dot />}
+                  </div>
+                </Fragment>
               ))}
             </Stack>
           </Box>

@@ -1,0 +1,64 @@
+{
+  "global": {
+    "menu": "Menu",
+    "watchlist": "Lista de Assistir",
+    "popular": "Popular",
+    "interests": "Interesses"
+  },
+  "button": {
+    "addToWatchList": "Adicionar à lista",
+    "watchTrailer": "Assistir trailer",
+    "seeMore": "Ver mais",
+    "more": "mais",
+    "rate": "Avaliar",
+    "submit": "Enviar",
+    "editeProfile": "Editar perfil",
+    "edite": "Editar",
+    "removeRate": "Remover avaliação",
+    "watched": "Marcar como assistido",
+    "unWatched": "Assistir",
+    "addToWatchlist": "Adicionar à lista de assistir",
+    "removeFromWatchList": "Na lista",
+    "logout": "Sair"
+  },
+  "user": {
+    "editeProfile": "Editar perfil",
+    "yourWatchList": "Lista de Assistir",
+    "watchlistDescription": "Filmes e séries que você quer assistir."
+  },
+  "title": {
+    "movie": "Filme",
+    "tv": "Séries",
+    "topRatingMovies": "Top 250 filmes",
+    "mostPopularMovies": "Filmes mais populares",
+    "topRatingTV": "Top 250 séries",
+    "mostPopularTV": "Séries mais populares",
+    "titles": "Títulos",
+    "movies&TV": "Filmes e séries",
+    "cast": "Elenco",
+    "reviews": "Avaliações",
+    "sectionReviewsTitle": "Avaliações dos usuários",
+    "videos": "Vídeos",
+    "images": "Imagens",
+    "trending": "Tendências",
+    "topRated": "Mais bem avaliados",
+    "genres": "Interesses populares",
+    "nowPlay": "Em cartaz",
+    "yourRate": "Sua avaliação",
+    "actors": "Atores",
+    "directors": "Diretores",
+    "similarTitles": "Semelhantes",
+    "noRatingYet": "Este título ainda não foi avaliado. Compartilhe sua opinião.",
+    "noWatchListYet": "Sua lista está vazia. Adicione filmes e séries."
+  },
+  "interaction": {
+    "rating": "Avaliações",
+    "watchList": "Lista de assistir",
+    "watched": "Histórico",
+    "reviews": "Avaliações",
+    "more": "mais"
+  },
+  "interest": {
+    "genre": "Gênero"
+  }
+}

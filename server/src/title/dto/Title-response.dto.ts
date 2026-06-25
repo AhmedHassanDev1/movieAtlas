@@ -1,3 +1,4 @@
+import { PartialType } from "@nestjs/swagger"
 import { Expose } from "class-transformer"
 
 
@@ -7,6 +8,15 @@ export class TitleEntity {
 
     @Expose()
     title: string
+
+    @Expose()
+    original_title: string
+
+    @Expose()
+    original_language: string
+
+    @Expose()
+    tagline: string
 
     @Expose()
     overview: string
@@ -32,6 +42,8 @@ export class TitleEntity {
     @Expose()
     vote_count: number
 
+    @Expose()
+    runtime: number
 
 }
 
@@ -74,4 +86,9 @@ export class VideoAssetDTO {
 
     @Expose()
     published_at: string
+}
+
+export class TitleSimilarReponseDTO extends PartialType(TitleEntity) {
+    commonGenres: number
+    score: number
 }

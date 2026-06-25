@@ -1,5 +1,10 @@
 
 
+export const GetFullYear = (date: string) => {
+  if (!date) return null;
+  return new Date(date).getFullYear()
+}
+
 export const parseRunTime = (time: number | undefined) => {
   if (!time) return null;
 
@@ -8,3 +13,10 @@ export const parseRunTime = (time: number | undefined) => {
 
   return `${hours}h ${minutes}m`;
 };
+
+export const parseJoinDate = (date: Date, locale?: string) => {
+  const formater = Intl.DateTimeFormat(locale || "en", {
+    dateStyle: "long",
+  })
+  return formater.format(date)
+} 

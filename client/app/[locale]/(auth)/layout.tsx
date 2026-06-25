@@ -2,7 +2,8 @@
 import Logo from "@/design-system/components/ui/Logo"
 import AuthPageWallpaper from "@/features/auth/components/AuthPageWallpaper"
 import AuthPosterCollage from "@/features/auth/components/AuthPosterCollage"
-import { Box, Grid } from "@mui/material"
+import GoogleLoginButton from "@/features/auth/components/button/GoogleLoginButton"
+import { Box, Divider, Grid, Stack } from "@mui/material"
 import { createContext, useState } from "react"
 
 
@@ -34,12 +35,12 @@ function Layout({
 
     return (
         <Box sx={{
-            top:"0px",
+            top: "0px",
             position: "relative",
             width: "100wv",
             // maxWidth:"100vh",
             minHeight: "100vh",
-            overflowX:"hidden"        
+            overflowX: "hidden"
         }}>
             <AuthPageWallpaper />
             <Grid container spacing={2} sx={{ position: 'relative', minHeight: "100vh", zIndex: 10 }}>
@@ -61,13 +62,20 @@ function Layout({
                         alignItems: "center"
                     }} >
                     <AuthContext.Provider value={{ authState, setAuthState }}>
-                        <Box sx={{width:"80%",maxWidth:"550px"}}>
+                        <Stack spacing={2} sx={{ width: "80%", maxWidth: "550px" }}>
                             <Logo />
                             {children}
-                        </Box>
+                            {!authState.pending_Verification && (
+                                <Stack spacing={2}>
+                                    <Divider >OR</Divider>
+                                    <GoogleLoginButton />
+                                </Stack>
+                            )}
+                        </Stack>
                     </AuthContext.Provider>
                 </Grid>
             </Grid>
+
         </Box>
     )
 }

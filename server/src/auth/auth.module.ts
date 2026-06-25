@@ -9,6 +9,9 @@ import { JwtModule, JwtService } from "@nestjs/jwt"
 import { RedisModule } from 'src/shared/module/Redis.module';
 import { join } from 'path';
 import { JWT_Access_expire } from "src/shared/constants/config/config";
+import { CleanUpService } from "./jobs/cleanup.cron";
+import { PassportModule } from "@nestjs/passport";
+import { GoogleStrategy } from "./guards/AuthGuard";
 
 
 
@@ -21,14 +24,14 @@ import { JWT_Access_expire } from "src/shared/constants/config/config";
       imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: (config: ConfigService) => ({
-       secret:config.get<string>("JWT_SECRET"),
-       signOptions:{
-        expiresIn :JWT_Access_expire
-       }
+        secret: config.get<string>("JWT_SECRET"),
+        signOptions: {
+          expiresIn: JWT_Access_expire
+        }
       })
     }),
     MailerModule.forRootAsync({
-      imports: [ConfigModule],
+      imports: [ConfigModule, PassportModule],
       inject: [ConfigService],
       useFactory: (config: ConfigService) => ({
         transport: {
@@ -55,7 +58,7 @@ import { JWT_Access_expire } from "src/shared/constants/config/config";
     })
   ],
   controllers: [AuthController],
-  providers: [AuthService,JwtService],
+  providers: [AuthService, JwtService, CleanUpService, GoogleStrategy],
 })
 export class AuthModule { }
 

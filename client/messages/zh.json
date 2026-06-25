@@ -1,0 +1,64 @@
+{
+  "global": {
+    "menu": "菜单",
+    "watchlist": "观看列表",
+    "popular": "热门",
+    "interests": "兴趣"
+  },
+  "button": {
+    "addToWatchList": "添加到观看列表",
+    "watchTrailer": "观看预告片",
+    "seeMore": "查看更多",
+    "more": "更多",
+    "rate": "评分",
+    "submit": "提交",
+    "editeProfile": "编辑资料",
+    "edite": "编辑",
+    "removeRate": "删除评分",
+    "watched": "标记为已观看",
+    "unWatched": "观看",
+    "addToWatchlist": "添加到观看列表",
+    "removeFromWatchList": "在观看列表中",
+    "logout": "退出登录"
+  },
+  "user": {
+    "editeProfile": "编辑资料",
+    "yourWatchList": "观看列表",
+    "watchlistDescription": "你想观看的电影和电视剧。"
+  },
+  "title": {
+    "movie": "电影",
+    "tv": "电视剧",
+    "topRatingMovies": "Top 250 电影",
+    "mostPopularMovies": "最受欢迎电影",
+    "topRatingTV": "Top 250 电视剧",
+    "mostPopularTV": "最受欢迎电视剧",
+    "titles": "标题",
+    "movies&TV": "电影与电视剧",
+    "cast": "演员表",
+    "reviews": "评论",
+    "sectionReviewsTitle": "用户评论",
+    "videos": "视频",
+    "images": "图片",
+    "trending": "趋势",
+    "topRated": "高评分",
+    "genres": "热门兴趣",
+    "nowPlay": "正在上映",
+    "yourRate": "你的评分",
+    "actors": "演员",
+    "directors": "导演",
+    "similarTitles": "相似作品",
+    "noRatingYet": "该作品尚未评分，分享你的看法。",
+    "noWatchListYet": "你的观看列表是空的，添加电影和电视剧吧。"
+  },
+  "interaction": {
+    "rating": "评分",
+    "watchList": "观看列表",
+    "watched": "观看历史",
+    "reviews": "评论",
+    "more": "更多"
+  },
+  "interest": {
+    "genre": "类型"
+  }
+}

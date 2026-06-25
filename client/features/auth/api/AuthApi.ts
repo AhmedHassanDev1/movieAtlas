@@ -36,3 +36,8 @@ export const emailVerification = async (data: { email: string, code: string }) =
 
   return await AuthApi.put("/verification-email", body);
 };
+
+
+export const logout=async()=>{
+  await AuthApi.delete("/logout")
+} 

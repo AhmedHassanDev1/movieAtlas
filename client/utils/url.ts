@@ -1,6 +1,6 @@
 
 
-export const genImageUrl = (url: string | null, type: "avatar" | "poster" | "backdrop" | "person") => {
+export const genImageUrl = (url: string | null, type: "avatar" | "poster" | "backdrop" | "person"|"small-poster") => {
     switch (type) {
         case "avatar":
             return url ? process.env.NEXT_PUBLIC_AVATAR_URL + url : null;
@@ -8,6 +8,8 @@ export const genImageUrl = (url: string | null, type: "avatar" | "poster" | "bac
             return url ? process.env.NEXT_PUBLIC_POSTER_URL + url : null;
         case "person":
             return url ? process.env.NEXT_PUBLIC_PERSON_URL + url : null;
+        case "small-poster":
+            return url ? process.env.NEXT_PUBLIC_SMALL_POSTER_URL + url : null;
 
         case "backdrop":
             return url ? process.env.NEXT_PUBLIC_BACKDROP_URL + url : null;

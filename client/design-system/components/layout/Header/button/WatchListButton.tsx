@@ -1,37 +1,57 @@
 "use client"
+import useUserStatistics from '@/features/user/hooks/useUserStatistics';
+import useAuth from '@/hooks/useAuth';
 import BookmarkAddIcon from '@mui/icons-material/BookmarkAdd';
-import { Chip, Stack, Typography } from '@mui/material';
-import { useTranslations } from 'next-intl';
+import { Box, Chip, Stack, Typography } from '@mui/material';
+import { useLocale, useTranslations } from 'next-intl';
 import Link from 'next/link';
 
 
 function WatchListButton() {
   const t = useTranslations("global")
-  const count = 12
+  const locale = useLocale()
+  const { data: user } = useAuth()
+  const { data } = useUserStatistics(user?.id)
+  const count = data?.watchlist_count ?? null
+  if (!count ) return
   return (
-    <Link href={"user/:id/watchlist"}>
-      <Stack direction={"row"} sx={{ alignItems: "center" }}>
-        <BookmarkAddIcon />
-        <Typography 
-        variant='subtitle2' 
-        sx={{ fontWeight: 500 }}
+    <Box sx={{
+      display: {
+        xs: "none",
+        md: "flex",
+      },
+    }}>
+      <Link
+        href={`/${locale}/user/${user?.id}/watchlist`} >
+        <Stack
+          direction={"row"}
+          sx={{
+            alignItems: "center"
+          }}
         >
-          {t("watchlist")}
+          <BookmarkAddIcon />
+          <Typography
+            variant='subtitle2'
+            sx={{ fontWeight: 500 }}
+          >
+            {t("watchlist")}
           </Typography>
-        {count ? (
+
           <Chip
-            label={count<=100?count:"99+"}
+            label={count <= 100 ? count : "99+"}
             size="small"
             sx={{
               backgroundColor: "primary.main",
               mx: 1,
-              fontWeight:600,
-              color:"white"
+              fontWeight: 600,
+              color: "white"
             }} />
-        ) : null}
-      </Stack>
-    </Link>
+
+        </Stack>
+      </Link>
+    </Box>
   )
 }
 
 export default WatchListButton
+

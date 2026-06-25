@@ -22,5 +22,11 @@ export class UserReponseDTO {
     is_verify: boolean
 
     @Expose()
+    bio: string
+    
+    @Expose()
+    created_at:string
+
+    @Expose()
     avatar: AvatarDTO | null
 }

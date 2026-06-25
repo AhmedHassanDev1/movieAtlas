@@ -52,7 +52,7 @@ export const components: Components = {
   MuiTextField: {
     styleOverrides: {
       root: {
-        backgroundColor: "#2d2d2d",
+       
        
       }
     },

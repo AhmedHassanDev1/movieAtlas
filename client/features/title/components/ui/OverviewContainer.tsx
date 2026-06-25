@@ -1,22 +1,28 @@
 
 
 
-import { Typography } from '@mui/material'
+import { Typography, TypographyVariant } from '@mui/material'
 import React from 'react'
-
-function OverviewContainer({ text, maxLine = 3 }: { text: string, maxLine: number }) {
+type OverviewContainerProps = {
+    variant?: TypographyVariant,
+    text: string,
+    maxLine?: number
+}
+function OverviewContainer({ text, maxLine = 3, variant }: OverviewContainerProps) {
     return (
         <Typography
-            variant='body1'
+            variant={variant || "h5"}
             sx={{
                 display: "-webkit-box",
                 WebkitBoxOrient: "vertical",
-                WebkitLineClamp: maxLine, 
+                WebkitLineClamp: maxLine,
                 overflow: "hidden",
                 textOverflow: "ellipsis",
+                fontWeight: 400
+
             }}
         >
-       {text}
+            {text}
         </Typography >
     )
 }

@@ -5,15 +5,17 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { UserModule } from './user/user.module';
 import { minutes, ThrottlerGuard, ThrottlerModule } from "@nestjs/throttler"
 import * as Joi from 'joi';
-import { APP_GUARD } from '@nestjs/core';
+import { APP_FILTER, APP_GUARD } from '@nestjs/core';
 import { RefreshTokenGuard } from './shared/guard/RefreshTokenGuard.guard';
-import { JwtModule, JwtService } from '@nestjs/jwt';
-import { JWT_Access_expire } from './shared/constants/config/config';
+import { JwtService } from '@nestjs/jwt';
 import { AccessTokenGuard } from './shared/guard/JwtAuthGuard.guard';
 import { DiscoverModule } from './discover/discover.module';
-import { ReviewModule } from './review/review.module';
 import { SearchModule } from './search/search.module';
 import { ScheduleModule } from '@nestjs/schedule';
+import { InteractionModule } from './interaction/interaction.module';
+
+import { HttpExceptionFilter } from './shared/filterException/HTTPExepption';
+import { PrismaExceptionFilter } from './shared/filterException/PrismaExceptionFilter';
 
 @Module({
   imports: [
@@ -29,15 +31,17 @@ import { ScheduleModule } from '@nestjs/schedule';
       }),
     }),
     ScheduleModule.forRoot(),
- 
+
     ThrottlerModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: (config: ConfigService) => ({
         throttlers: [{
           ttl: minutes(config.get<number>("TTL") as number),
-          limit: config.get<number>("LIMIT") as number
-        }]
+          limit: config.get<number>("LIMIT") as number,
+          
+        }],
+        errorMessage:"The number of requests is very high, please try again later."
 
       })
     }),
@@ -45,15 +49,16 @@ import { ScheduleModule } from '@nestjs/schedule';
     TitleModule,
     UserModule,
     DiscoverModule,
-    ReviewModule,
-    SearchModule],
+    SearchModule,
+    InteractionModule,
+  ],
   controllers: [],
   providers: [
     JwtService,
-    // {
-    //   provide: APP_GUARD,
-    //   useClass: ThrottlerGuard
-    // },
+    {
+      provide: APP_GUARD,
+      useClass: ThrottlerGuard
+    },
     {
       provide: APP_GUARD,
       useClass: RefreshTokenGuard
@@ -61,7 +66,16 @@ import { ScheduleModule } from '@nestjs/schedule';
     {
       provide: APP_GUARD,
       useClass: AccessTokenGuard
-    }
+    },
+    {
+      provide: APP_FILTER,
+      useClass: HttpExceptionFilter,
+    },
+    {
+      provide: APP_FILTER,
+      useClass: PrismaExceptionFilter,
+    },
+
   ],
 })
 export class AppModule { }

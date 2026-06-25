@@ -6,11 +6,11 @@ export function MovieCardSkeleton() {
     return (
         <Paper
             sx={{
-                flex: "0 0 auto",
-                width: {
+                flex:"0 0 1",
+                minWidth: {
                     xs: 200,
                     sm: 250,
-                    md: 320,
+                    md: 350,
                 },
                 aspectRatio: "2 / 3",
                 borderRadius: 1,
@@ -78,7 +78,7 @@ export default function MovieCardSkeletonGroup(){
             display: "flex",
             width: "100%",
             height: "100%",
-            gap: 2,
+            gap: 3,
             overflow:"hidden"
         }}>
         {Array(6).fill(null).map((el,ind)=>(

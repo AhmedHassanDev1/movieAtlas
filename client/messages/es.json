@@ -1,0 +1,64 @@
+{
+  "global": {
+    "menu": "Menú",
+    "watchlist": "Lista de reproducción",
+    "popular": "Popular",
+    "interests": "Intereses"
+  },
+  "button": {
+    "addToWatchList": "Añadir a la lista",
+    "watchTrailer": "Ver tráiler",
+    "seeMore": "Ver más",
+    "more": "más",
+    "rate": "Calificar",
+    "submit": "Enviar",
+    "editeProfile": "Editar perfil",
+    "edite": "Editar",
+    "removeRate": "Eliminar calificación",
+    "watched": "Marcar como visto",
+    "unWatched": "Ver",
+    "addToWatchlist": "Añadir a la lista de reproducción",
+    "removeFromWatchList": "En la lista",
+    "logout": "Cerrar sesión"
+  },
+  "user": {
+    "editeProfile": "Editar perfil",
+    "yourWatchList": "Lista de reproducción",
+    "watchlistDescription": "Películas y series que quieres ver."
+  },
+  "title": {
+    "movie": "Película",
+    "tv": "Series",
+    "topRatingMovies": "Top 250 películas",
+    "mostPopularMovies": "Películas más populares",
+    "topRatingTV": "Top 250 series",
+    "mostPopularTV": "Series más populares",
+    "titles": "Títulos",
+    "movies&TV": "Películas y series",
+    "cast": "Reparto",
+    "reviews": "Reseñas",
+    "sectionReviewsTitle": "Reseñas de usuarios",
+    "videos": "Videos",
+    "images": "Imágenes",
+    "trending": "Tendencias",
+    "topRated": "Mejor valoradas",
+    "genres": "Intereses populares",
+    "nowPlay": "En cartelera",
+    "yourRate": "Tu calificación",
+    "actors": "Actores",
+    "directors": "Directores",
+    "similarTitles": "Más como esto",
+    "noRatingYet": "Este título aún no ha sido calificado. Comparte tu opinión con la comunidad.",
+    "noWatchListYet": "Tu lista está vacía. Empieza a añadir películas y series para verlas más tarde."
+  },
+  "interaction": {
+    "rating": "Calificaciones",
+    "watchList": "Lista de reproducción",
+    "watched": "Historial de vistos",
+    "reviews": "Reseñas",
+    "more": "más"
+  },
+  "interest": {
+    "genre": "Género"
+  }
+}

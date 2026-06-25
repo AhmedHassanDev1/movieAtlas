@@ -9,12 +9,10 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { errorMessage } from "@/utils/message";
 import { useMutation } from "@tanstack/react-query";
 import { signUp } from "../api/AuthApi";
-import { AxiosError } from "axios";
-import { errorResponse } from "@/utils/message";
 import { AuthContext, AuthContextType } from "@/app/[locale]/(auth)/layout";
 import VerificationCodeForm from "./VerificationCodeForm";
 import ErrorField from "./ErrorField";
-import SubmitButton from "./SubmitButton";
+import SubmitButton from "./button/SubmitButton";
 
 function SignUpForm() {
     const [showPassword, setShowPassword] = useState(false);
@@ -41,7 +39,7 @@ function SignUpForm() {
             await mutateAsync(data)
             setAuthState({ email: data.email, pending_Verification: true })
         } catch (error) {
-            const axiosError = error as AxiosError<errorResponse>
+            const axiosError = error
             errorMessage(axiosError)
         }
     }
@@ -138,7 +136,7 @@ function SignUpForm() {
                         </>
                     })}
                 />
-                <SubmitButton disabled={isPending} >
+                <SubmitButton loading={isPending} >
                     Create Account
                 </SubmitButton>
                 <Typography variant="h6">

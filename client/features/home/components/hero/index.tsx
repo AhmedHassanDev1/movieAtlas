@@ -6,6 +6,7 @@ import Slide from "./HeroSlide"
 import { TitleDetails } from "../../../title/types/title"
 import { useEffect, useState } from "react"
 import { grey } from '@mui/material/colors';
+import { useLocale } from "next-intl"
 type HeroProps = {
     rank: number,
     title: TitleDetails
@@ -14,8 +15,11 @@ type HeroProps = {
 
 function Hero({ data }: { data: HeroProps[] | undefined }) {
     const titles = data
+ const locale = useLocale()
 
+  const dir = locale === "ar" ? "rtl" : "ltr"
     const [emblaRef, emblaApi] = useEmblaCarousel({
+       direction:dir,
         axis: "x",
         loop: false,
         align: "center",

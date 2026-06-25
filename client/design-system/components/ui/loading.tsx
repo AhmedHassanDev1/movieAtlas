@@ -4,7 +4,7 @@
 
 function Loading() {
   return (
-    <span className="spinner-loader"></span>
+    <span className="spinner-loader "></span>
   )
 }
 

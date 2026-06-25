@@ -1,32 +1,45 @@
-import { AxiosError } from "axios"
-import { toast, Bounce } from 'react-toastify';
+import axios from "axios";
+import { toast, Bounce } from "react-toastify";
 
-export type errorResponse = {
-    message: string
-    error: string
-    statusCode: number
-}
 
-export const errorMessage = (error: AxiosError<errorResponse> | string) => {
-    let message = null
-    if (error instanceof AxiosError) {
-        if (error.response?.data?.message) {
-            message = error.response?.data?.message || "An unknown error occurred";
-        }
-    } else {
-        message = error;
-    }
+const baseOptions = {
+  position: "bottom-center" as const,
+  autoClose: 2500,
+  hideProgressBar: false,
+  closeOnClick: false,
+  pauseOnHover: true,
+  draggable: true,
+  theme: "colored",
+  transition: Bounce,
+};
 
-    toast.error(message, {
-        position: "bottom-center",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: false,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "colored",
-        transition: Bounce,
-    });
+type ErrorResponse = {
+  message?: string;
+  error?: string;
+  statusCode?: number;
+};
 
-}
+export const errorMessage = (error: unknown | string) => {
+  let message = "An unknown error occurred";
+
+  if (typeof error === "string") {
+    message = error;
+  }
+  else if (axios.isAxiosError<ErrorResponse>(error)) {
+    message =
+      error.response?.data?.message ||
+      error.message ||
+      "Request failed";
+  }
+  else if (error instanceof Error) {
+    message = error.message;
+  }
+
+  toast.error(message, baseOptions);
+};
+
+
+
+export const successMessage = (message: string) => {
+  toast.success(message, baseOptions);
+};

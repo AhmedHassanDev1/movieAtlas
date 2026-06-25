@@ -1,13 +1,10 @@
 "use client";
-
+import ProfileMenu from "../../ui/menus/ProfileMenu";
 import { useState } from "react";
 import {
     Avatar,
     Box,
     Button,
-    
-    Menu,
-    MenuItem,
     Typography,
 } from "@mui/material";
 
@@ -19,12 +16,13 @@ import Link from "next/link";
 
 function UserChip() {
     const { data, isLoading, isError } = useAuth()
+
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
     const isOpen = Boolean(anchorEl);
 
     if (isLoading) return <Box sx={{
-          position:"relative",
+        position: "relative",
         display: "flex",
         alignItems: "center",
         gap: 0.5,
@@ -43,19 +41,18 @@ function UserChip() {
     </Box>
     if (!data || isError) {
         return <Link href={"/en/login"}>
-            <Button 
-            size="small"
-            sx={{
-                height:"min-content",
-                padding:"none",
-                border:"1px solid",
-                borderColor:"whitesmoke",
-                bgcolor:"secondary.main"
-            }}
+            <Button
+                size="small"
+                variant="outlined"
+                sx={{
+                    height: "min-content",
+                    padding: "none",
+
+                }}
             >
-            <Typography variant="subtitle1">
-                Log in
-            </Typography>
+                <Typography variant="subtitle1">
+                    Log in
+                </Typography>
             </Button>
         </Link>
     }
@@ -69,7 +66,7 @@ function UserChip() {
                     display: "flex",
                     alignItems: "center",
                     gap: 0.5,
-                    
+
                     height: 32,
                     px: 1,
 
@@ -84,8 +81,8 @@ function UserChip() {
                 {avatar ? (
                     <Avatar
                         sx={{
-                            width: 24,
-                            height: 24,
+                            width: 32,
+                            height: 32,
                             fontSize: 12,
                         }}
                         src={avatar.url}
@@ -101,20 +98,21 @@ function UserChip() {
                         {user_name.charAt(0).toUpperCase()}
                     </Avatar>
                 )}
-                <Typography variant="subtitle2">
-                    {user_name}
-                </Typography>
-                {!isOpen ? <ArrowDropDownIcon fontSize="small" /> : <ArrowDropUpIcon fontSize="small" />}
+                <Box
+                    sx={{
+                        alignItems: "center",
+                        display: {
+                            xs: "none",
+                            md: "flex"
+                        }
+                    }}>
+                    <Typography variant="subtitle2">
+                        {user_name}
+                    </Typography>
+                    {!isOpen ? <ArrowDropDownIcon fontSize="small" /> : <ArrowDropUpIcon fontSize="small" />}
+                </Box>
             </Box>
-            <Menu
-                anchorEl={anchorEl}
-                open={isOpen}
-                onClose={() => setAnchorEl(null)}
-            >
-                <MenuItem>Profile</MenuItem>
-                <MenuItem>Settings</MenuItem>
-                <MenuItem>Logout</MenuItem>
-            </Menu>
+            <ProfileMenu isOpen={isOpen} anchorEl={anchorEl} setAnchorEl={setAnchorEl} />
 
         </Box >
     );

@@ -1,12 +1,13 @@
 "use client"
 import AddIcon from '@mui/icons-material/Add';
 import { Box, Button, Typography } from "@mui/material"
-import WatchTrailer from "../ui/buttons/WatchTrailer"
-import ToggleWatchListButton from "../ui/buttons/ToggleWatchListButton"
-import ToggleWatchButton from '../ui/buttons/ToggleWatchButton';
+import WatchTrailer from "../../../Interactions/components/ui/buttons/WatchTrailer"
+import ToggleWatchListButton from "../../../Interactions/components/ui/buttons/WatchListButton"
+import ToggleWatchButton from '../../../Interactions/components/ui/buttons/WatchButton';
+import AddToWatchListButton from '../../../Interactions/components/ui/buttons/WatchListButton';
 
 
-function TitleActionButton() {
+function TitleActionButton({titleId}:{titleId:string}) {
   return (
     <Box sx={{
       display: "grid",
@@ -22,27 +23,8 @@ function TitleActionButton() {
       }
     }}>
       <WatchTrailer />
-      {/* <ToggleWatchListButton
-        render={(state,loading) => (
-          <Button
-            sx={{
-              backgroundColor: "secondary.main",
-            }}
-          >
-            <AddIcon />
-            <Typography
-              variant="subtitle1"
-              sx={{
-                wordBreak: "keep-all",
-                fontWeight: 700,
-              }}>
-              Add to watchlist
-            </Typography>
-          </Button>
-        )} />
-
-
-      <ToggleWatchButton /> */}
+      <AddToWatchListButton titleId={titleId}/>
+      <ToggleWatchButton titleId={titleId} />
     </Box>
   )
 }
