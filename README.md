@@ -75,6 +75,8 @@ This product uses the TMDB API but is not endorsed or certified by TMDB.
 - React-Query
 - TypeScript
 - Material UI
+- Next-Intl
+ 
 ### BackEnd
 - Nestjs
 - Prisma
@@ -86,6 +88,7 @@ This product uses the TMDB API but is not endorsed or certified by TMDB.
 - Docker
 - Railway
 - Vercel
+- Supabase 
 ## 📸 Screenshots
 ### Home Page
 
