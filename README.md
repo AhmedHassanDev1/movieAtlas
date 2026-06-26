@@ -6,7 +6,8 @@
 
 <p align="center"> A modern movie discovery platform built with Next.js, NestJS, Prisma, PostgreSQL, Redis, GraphQL, and Microservices Architecture. </p>
 
-<p align="center"> <img src="https://img.shields.io/badge/Next.js-15-black" /> <img src="https://img.shields.io/badge/NestJS-11-red" /> <img src="https://img.shields.io/badge/PostgreSQL-Database-blue" /> <img src="https://img.shields.io/badge/Redis-Cache-orange" /> <img src="https://img.shields.io/badge/TypeScript-100%25-blue" /> </p>
+<p align="center"> <img src="https://img.shields.io/badge/Next.js-15-black" /> <img src="https://img.shields.io/badge/NestJS-11-red" /> <img src="https://img.shields.io/badge/PostgreSQL-Database-blue" /> <img src="https://img.shields.io/badge/Redis-Cache-orange" /> <img src="https://img.shields.io/badge/TypeScript-100%25-blue" /> 
+<img src="https://img.shields.io/badge/TMDB-API-blue?logo=themoviedatabase" /> </p>
 
 ## 🚀 Live Demo
 
