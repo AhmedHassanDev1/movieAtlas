@@ -10,13 +10,14 @@ import {
     useTheme
 } from "@mui/material";
 import { useRouter } from "next/navigation";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 function SearchBar() {
     const [open, setOpen] = useState(false);
     const [searchValue, setSearchValue] = useState("")
     const router = useRouter()
     const locale = useLocale()
+    const t = useTranslations("global");
 
     const handleSearch = () => {
         router.push(`/${locale}/search?q=${searchValue}`)
@@ -49,7 +50,7 @@ function SearchBar() {
                 }}
             >
                 <InputBase
-                    placeholder="Search movies"
+                    placeholder={t("searchMovies")}
                     onChange={(e) => setSearchValue(e.target.value)}
                     onKeyUp={handleEnter}
                     type="search"
@@ -107,7 +108,7 @@ function SearchBar() {
                         type="search"
                       
                         autoFocus
-                        placeholder="Search movies"
+                        placeholder={t("searchMovies")}
                         sx={{
                             flex: 1,
                             background: "white",

@@ -17,6 +17,7 @@ import { Area } from 'react-easy-crop'
 
 function Page() {
   const t = useTranslations("user")
+  const tButton = useTranslations("button")
   const { data, refetch } = useAuth()
   const [open, setOpen] = useState(false)
   const prevUrl = useRef<string | null>(null)
@@ -80,11 +81,11 @@ function Page() {
               alignItems: "center"
             }}>
             <UserAvatar avatar={data?.avatar?.url} user_name={data?.user_name} />
-            <Typography variant='h5'>Upload Image</Typography>
-            <Typography variant='h6'>max file size is 2MB</Typography>
+            <Typography variant='h5'>{t("uploadImage")}</Typography>
+            <Typography variant='h6'>{t("maxFileSize")}</Typography>
             <label htmlFor="avatar-upload">
               <Button variant='outlined' component="span">
-                Upload
+                {tButton("upload")}
               </Button>
             </label>
             <input

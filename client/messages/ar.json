@@ -7,7 +7,9 @@
     "close": "Close",
     "noContent": "No content found matching your current filters.",
     "all": "All",
-    "topRating": "Top Rating"
+    "topRating": "Top Rating",
+    "or": "OR",
+    "searchMovies": "Search movies"
   },
   "button": {
     "addToWatchList": "أضف إلى قائمة المشاهدة",
@@ -26,13 +28,16 @@
     "logout": "تسجيل الخروج",
     "addFavorite": "Add favorite",
     "cancel": "Cancel",
-    "save": "Save"
+    "save": "Save",
+    "upload": "Upload"
   },
   "user": {
     "editeProfile": "تعديل الملف الشخصي",
     "yourWatchList": "قائمة المشاهدة",
     "watchlistDescription": "الأفلام والمسلسلات التي ترغب في مشاهدتها.",
-    "cropImage": "Crop Image"
+    "cropImage": "Crop Image",
+    "uploadImage": "Upload Image",
+    "maxFileSize": "max file size is 2MB"
   },
   "title": {
     "movie": "الأفلام",

@@ -7,7 +7,9 @@
     "close": "Close",
     "noContent": "No content found matching your current filters.",
     "all": "All",
-    "topRating": "Top Rating"
+    "topRating": "Top Rating",
+    "or": "OR",
+    "searchMovies": "Search movies"
   },
   "button": {
     "addToWatchList": "添加到观看列表",
@@ -26,13 +28,16 @@
     "logout": "退出登录",
     "addFavorite": "Add favorite",
     "cancel": "Cancel",
-    "save": "Save"
+    "save": "Save",
+    "upload": "Upload"
   },
   "user": {
     "editeProfile": "编辑资料",
     "yourWatchList": "观看列表",
     "watchlistDescription": "你想观看的电影和电视剧。",
-    "cropImage": "Crop Image"
+    "cropImage": "Crop Image",
+    "uploadImage": "Upload Image",
+    "maxFileSize": "max file size is 2MB"
   },
   "title": {
     "movie": "电影",

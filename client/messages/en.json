@@ -7,7 +7,9 @@
     "close": "Close",
     "noContent": "No content found matching your current filters.",
     "all": "All",
-    "topRating": "Top Rating"
+    "topRating": "Top Rating",
+    "or": "OR",
+    "searchMovies": "Search movies"
   },
   "button": {
     "addToWatchList": "add WatchList",
@@ -26,13 +28,16 @@
     "logout": "logout",
     "addFavorite": "Add favorite",
     "cancel": "Cancel",
-    "save": "Save"
+    "save": "Save",
+    "upload": "Upload"
   },
   "user": {
     "editeProfile": "Edit Profile",
     "yourWatchList": "WatchList",
     "watchlistDescription": "Movies and TV shows you want to watch.",
-    "cropImage": "Crop Image"
+    "cropImage": "Crop Image",
+    "uploadImage": "Upload Image",
+    "maxFileSize": "max file size is 2MB"
   },
   "title": {
     "movie": "Movie",

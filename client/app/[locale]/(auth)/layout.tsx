@@ -5,6 +5,7 @@ import AuthPosterCollage from "@/features/auth/components/AuthPosterCollage"
 import GoogleLoginButton from "@/features/auth/components/button/GoogleLoginButton"
 import { Box, Divider, Grid, Stack } from "@mui/material"
 import { createContext, useState } from "react"
+import { useTranslations } from "next-intl"
 
 
 export type AuthStateType = {
@@ -31,6 +32,7 @@ function Layout({
 }: {
     children: React.ReactNode
 }) {
+    const t = useTranslations("global");
     const [authState, setAuthState] = useState<AuthStateType>(defaultAuthState)
 
     return (
@@ -67,7 +69,7 @@ function Layout({
                             {children}
                             {!authState.pending_Verification && (
                                 <Stack spacing={2}>
-                                    <Divider >OR</Divider>
+                                    <Divider >{t("or")}</Divider>
                                     <GoogleLoginButton />
                                 </Stack>
                             )}
