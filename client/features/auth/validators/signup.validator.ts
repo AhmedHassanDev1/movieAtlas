@@ -4,22 +4,22 @@ export const signUpSchema = z.object({
     firstName: z
         .string()
         .trim()
-        .min(2, "First name must be at least 2 characters")
-        .max(50, "First name is too long"),
+        .min(2, "firstNameLength")
+        .max(50, "firstNameTooLong"),
 
     lastName: z
         .string()
         .trim()
-        .min(2, "Last name must be at least 2 characters")
-        .max(50, "Last name is too long"),
+        .min(2, "lastNameLength")
+        .max(50, "lastNameTooLong"),
 
     email: z
-        .email("Please enter a valid email address"),
+        .email("invalidEmail"),
 
     password: z
         .string()
-        .min(8, "Password must be at least 8 characters")
-        .max(100, "Password is too long"),
+        .min(8, "passwordLength")
+        .max(100, "passwordTooLong"),
 });
 
 export type signUpSchemaType = z.infer<typeof signUpSchema>

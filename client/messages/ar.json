@@ -3,7 +3,11 @@
     "menu": "القائمة",
     "watchlist": "قائمة المشاهدة",
     "popular": "الأكثر شعبية",
-    "interests": "الاهتمامات"
+    "interests": "الاهتمامات",
+    "close": "Close",
+    "noContent": "No content found matching your current filters.",
+    "all": "All",
+    "topRating": "Top Rating"
   },
   "button": {
     "addToWatchList": "أضف إلى قائمة المشاهدة",
@@ -19,12 +23,16 @@
     "unWatched": "مشاهدة",
     "addToWatchlist": "أضف إلى قائمة المشاهدة",
     "removeFromWatchList": "في قائمة المشاهدة",
-    "logout": "تسجيل الخروج"
+    "logout": "تسجيل الخروج",
+    "addFavorite": "Add favorite",
+    "cancel": "Cancel",
+    "save": "Save"
   },
   "user": {
     "editeProfile": "تعديل الملف الشخصي",
     "yourWatchList": "قائمة المشاهدة",
-    "watchlistDescription": "الأفلام والمسلسلات التي ترغب في مشاهدتها."
+    "watchlistDescription": "الأفلام والمسلسلات التي ترغب في مشاهدتها.",
+    "cropImage": "Crop Image"
   },
   "title": {
     "movie": "الأفلام",
@@ -60,5 +68,44 @@
   },
   "interest": {
     "genre": "النوع"
+  },
+  "auth": {
+    "login": "Login",
+    "signup": "Sign Up",
+    "continueWithGoogle": "Continue with Google",
+    "email": "Email",
+    "password": "Password",
+    "username": "Username",
+    "alreadyHaveAccount": "Already have an account?",
+    "dontHaveAccount": "Don't have an account?",
+    "loginDescription": "Log in to your account.",
+    "signupDescription": "Create a new account.",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "verificationCode": "Verification Code",
+    "verificationSent": "We sent a 6-digit code to your email",
+    "verifying": "Verifying...",
+    "verify": "Verify"
+  },
+  "validation": {
+    "emailRequired": "Email is required",
+    "emailInvalid": "Invalid email address",
+    "passwordRequired": "Password is required",
+    "passwordLength": "Password must be at least 8 characters",
+    "usernameRequired": "Username is required",
+    "usernameLength": "Username must be at least 3 characters",
+    "serverError": "Something went wrong, please try again.",
+    "invalidEmail": "Please enter a valid email address",
+    "passwordTooLong": "Password is too long",
+    "firstNameLength": "First name must be at least 2 characters",
+    "firstNameTooLong": "First name is too long",
+    "lastNameLength": "Last name must be at least 2 characters",
+    "lastNameTooLong": "Last name is too long"
+  },
+  "metadata": {
+    "title": "Movie Atlas | Explore Movies & TV Shows",
+    "description": "Discover movies, TV shows, ratings, and trending titles. Explore detailed information, reviews, and personalized recommendations all in one place.",
+    "ogTitle": "Movie Atlas | Explore Movies & TV Shows",
+    "ogDescription": "Discover movies, TV shows, ratings, and trending titles in one place."
   }
 }

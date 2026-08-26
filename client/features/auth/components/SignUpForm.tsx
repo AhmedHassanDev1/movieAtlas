@@ -4,6 +4,7 @@ import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import { use, useState } from "react";
 import { useForm, Controller } from "react-hook-form"
+import { useTranslations, useLocale } from "next-intl";
 import { signUpSchema, signUpSchemaType } from "../validators/signup.validator";
 import { zodResolver } from "@hookform/resolvers/zod"
 import { errorMessage } from "@/utils/message";
@@ -15,6 +16,8 @@ import ErrorField from "./ErrorField";
 import SubmitButton from "./button/SubmitButton";
 
 function SignUpForm() {
+    const locale = useLocale()
+    const t = useTranslations("auth")
     const [showPassword, setShowPassword] = useState(false);
     const { authState: { pending_Verification }, setAuthState } = use<AuthContextType>(AuthContext)
     const { mutateAsync, isPending } = useMutation({
@@ -53,7 +56,7 @@ function SignUpForm() {
                 spacing={2}
                 direction={"column"}
                 sx={{ alignContent: "center", width: "100%" }} >
-                <Typography variant="h1" sx={{ fontWeight: 200 }} >sign up</Typography>
+                <Typography variant="h1" sx={{ fontWeight: 200 }} >{t("signup")}</Typography>
                 <Grid container spacing={2} >
                     <Controller
                         control={control}
@@ -62,7 +65,7 @@ function SignUpForm() {
                             return <Grid size={6} >
                                 <TextField
                                     {...field}
-                                    placeholder="first name"
+                                    placeholder={t("firstName")}
                                     autoComplete="given-name"
                                 />
                                 <ErrorField message={errors.firstName?.message as string} />
@@ -79,7 +82,7 @@ function SignUpForm() {
                                 <TextField
                                     {...field}
                                     autoComplete="family-name"
-                                    placeholder="last name"
+                                    placeholder={t("lastName")}
 
                                 />
                                 <ErrorField message={errors.lastName?.message as string} />
@@ -95,7 +98,7 @@ function SignUpForm() {
                             <TextField
                                 type="email"
                                 {...field}
-                                placeholder="email"
+                                placeholder={t("email")}
                                 autoComplete="email"
                             />
                             <ErrorField message={errors.email?.message as string} />
@@ -109,7 +112,7 @@ function SignUpForm() {
                         return <>
                             <TextField
                                 {...field}
-                                placeholder="password"
+                                placeholder={t("password")}
                                 type={showPassword ? "text" : "password"}
                                 autoComplete="current-password"
                                 slotProps={{
@@ -137,11 +140,11 @@ function SignUpForm() {
                     })}
                 />
                 <SubmitButton loading={isPending} >
-                    Create Account
+                    {t("signup")}
                 </SubmitButton>
                 <Typography variant="h6">
-                    I already have an account
-                    <Link href={"/en/login"} className="font-bold text-sm">  log in</Link>
+                    {t("alreadyHaveAccount")}
+                    <Link href={`/${locale}/login`} className="font-bold text-sm">  {t("login")}</Link>
                 </Typography>
             </Stack>
         </form>

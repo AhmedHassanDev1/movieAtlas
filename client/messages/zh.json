@@ -3,7 +3,11 @@
     "menu": "菜单",
     "watchlist": "观看列表",
     "popular": "热门",
-    "interests": "兴趣"
+    "interests": "兴趣",
+    "close": "Close",
+    "noContent": "No content found matching your current filters.",
+    "all": "All",
+    "topRating": "Top Rating"
   },
   "button": {
     "addToWatchList": "添加到观看列表",
@@ -19,12 +23,16 @@
     "unWatched": "观看",
     "addToWatchlist": "添加到观看列表",
     "removeFromWatchList": "在观看列表中",
-    "logout": "退出登录"
+    "logout": "退出登录",
+    "addFavorite": "Add favorite",
+    "cancel": "Cancel",
+    "save": "Save"
   },
   "user": {
     "editeProfile": "编辑资料",
     "yourWatchList": "观看列表",
-    "watchlistDescription": "你想观看的电影和电视剧。"
+    "watchlistDescription": "你想观看的电影和电视剧。",
+    "cropImage": "Crop Image"
   },
   "title": {
     "movie": "电影",
@@ -60,5 +68,44 @@
   },
   "interest": {
     "genre": "类型"
+  },
+  "auth": {
+    "login": "Login",
+    "signup": "Sign Up",
+    "continueWithGoogle": "Continue with Google",
+    "email": "Email",
+    "password": "Password",
+    "username": "Username",
+    "alreadyHaveAccount": "Already have an account?",
+    "dontHaveAccount": "Don't have an account?",
+    "loginDescription": "Log in to your account.",
+    "signupDescription": "Create a new account.",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "verificationCode": "Verification Code",
+    "verificationSent": "We sent a 6-digit code to your email",
+    "verifying": "Verifying...",
+    "verify": "Verify"
+  },
+  "validation": {
+    "emailRequired": "Email is required",
+    "emailInvalid": "Invalid email address",
+    "passwordRequired": "Password is required",
+    "passwordLength": "Password must be at least 8 characters",
+    "usernameRequired": "Username is required",
+    "usernameLength": "Username must be at least 3 characters",
+    "serverError": "Something went wrong, please try again.",
+    "invalidEmail": "Please enter a valid email address",
+    "passwordTooLong": "Password is too long",
+    "firstNameLength": "First name must be at least 2 characters",
+    "firstNameTooLong": "First name is too long",
+    "lastNameLength": "Last name must be at least 2 characters",
+    "lastNameTooLong": "Last name is too long"
+  },
+  "metadata": {
+    "title": "Movie Atlas | Explore Movies & TV Shows",
+    "description": "Discover movies, TV shows, ratings, and trending titles. Explore detailed information, reviews, and personalized recommendations all in one place.",
+    "ogTitle": "Movie Atlas | Explore Movies & TV Shows",
+    "ogDescription": "Discover movies, TV shows, ratings, and trending titles in one place."
   }
 }

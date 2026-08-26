@@ -1,64 +1,111 @@
 {
-    "global": {
-        "menu": "Menu",
-        "watchlist": "Watch List",
-        "popular": "Popular",
-        "interests": "interests"
-    },
-    "button": {
-        "addToWatchList": "add WatchList",
-        "watchTrailer": "watch Trailer",
-        "seeMore": "Sea More",
-        "more": "more",
-        "rate": "Rate",
-        "submit": "Submit",
-        "editeProfile": "Edite Profile",
-        "edite": "Edite",
-        "removeRate": "Remove Rate",
-        "watched": "Mark as watched",
-        "unWatched": "Watch",
-        "addToWatchlist": "Add to watch list",
-        "removeFromWatchList": "in watchlist",
-        "logout":"logout"
-    },
-    "user": {
-        "editeProfile": "Edite Profile",
-        "yourWatchList": "WatchList",
-        "watchlistDescription": "Movies and TV shows you want to watch."
-    },
-    "title": {
-        "movie": "Movie",
-        "tv": "TV Shows",
-        "topRatingMovies": "Top 250 Movies",
-        "mostPopularMovies": "Most popular Movies",
-        "topRatingTV": "Top 250 TV Shows",
-        "mostPopularTV": "Most popular TV Shows",
-        "titles": "Titles",
-        "movies&TV": "Movies & TV shows",
-        "cast": "Cast",
-        "reviews": "Reviews",
-        "sectionReviewsTitle": "User Reviews",
-        "videos": "Videos",
-        "images": "Images",
-        "trending": "trending",
-        "topRated": "top Rated",
-        "genres": "Popular Interests",
-        "nowPlay": "In Theaters",
-        "yourRate": "Your Rate",
-        "actors": "Actors",
-        "directors": "Directors",
-        "similarTitles": "More like this",
-        "noRatingYet":"This title hasn't been rated yet.Share your rating and let the community know what you think.",
-        "noWatchListYet":"Your watchlist is empty. Start adding movies and TV shows to keep track of what you want to watch next."
-    },
-    "interaction": {
-        "rating": "Ratings",
-        "watchList": "Watchlist",
-        "watched": "Watched History",
-        "reviews": "Reviews",
-        "more": "more"
-    },
-    "interest": {
-        "genre": "Genre"
-    }
+  "global": {
+    "menu": "Menu",
+    "watchlist": "Watch List",
+    "popular": "Popular",
+    "interests": "interests",
+    "close": "Close",
+    "noContent": "No content found matching your current filters.",
+    "all": "All",
+    "topRating": "Top Rating"
+  },
+  "button": {
+    "addToWatchList": "add WatchList",
+    "watchTrailer": "watch Trailer",
+    "seeMore": "See more",
+    "more": "more",
+    "rate": "Rate",
+    "submit": "Submit",
+    "editeProfile": "Edit Profile",
+    "edite": "Edit",
+    "removeRate": "Remove Rate",
+    "watched": "Mark as watched",
+    "unWatched": "Watch",
+    "addToWatchlist": "Add to watch list",
+    "removeFromWatchList": "in watchlist",
+    "logout": "logout",
+    "addFavorite": "Add favorite",
+    "cancel": "Cancel",
+    "save": "Save"
+  },
+  "user": {
+    "editeProfile": "Edit Profile",
+    "yourWatchList": "WatchList",
+    "watchlistDescription": "Movies and TV shows you want to watch.",
+    "cropImage": "Crop Image"
+  },
+  "title": {
+    "movie": "Movie",
+    "tv": "TV Shows",
+    "topRatingMovies": "Top 250 Movies",
+    "mostPopularMovies": "Most popular Movies",
+    "topRatingTV": "Top 250 TV Shows",
+    "mostPopularTV": "Most popular TV Shows",
+    "titles": "Titles",
+    "movies&TV": "Movies & TV shows",
+    "cast": "Cast",
+    "reviews": "Reviews",
+    "sectionReviewsTitle": "User Reviews",
+    "videos": "Videos",
+    "images": "Images",
+    "trending": "trending",
+    "topRated": "top Rated",
+    "genres": "Popular Interests",
+    "nowPlay": "In Theaters",
+    "yourRate": "Your Rate",
+    "actors": "Actors",
+    "directors": "Directors",
+    "similarTitles": "More like this",
+    "noRatingYet": "This title hasn't been rated yet.Share your rating and let the community know what you think.",
+    "noWatchListYet": "Your watchlist is empty. Start adding movies and TV shows to keep track of what you want to watch next."
+  },
+  "interaction": {
+    "rating": "Ratings",
+    "watchList": "Watchlist",
+    "watched": "Watched History",
+    "reviews": "Reviews",
+    "more": "more"
+  },
+  "interest": {
+    "genre": "Genre"
+  },
+  "auth": {
+    "login": "Login",
+    "signup": "Sign Up",
+    "continueWithGoogle": "Continue with Google",
+    "email": "Email",
+    "password": "Password",
+    "username": "Username",
+    "alreadyHaveAccount": "Already have an account?",
+    "dontHaveAccount": "Don't have an account?",
+    "loginDescription": "Log in to your account.",
+    "signupDescription": "Create a new account.",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "verificationCode": "Verification Code",
+    "verificationSent": "We sent a 6-digit code to your email",
+    "verifying": "Verifying...",
+    "verify": "Verify"
+  },
+  "validation": {
+    "emailRequired": "Email is required",
+    "emailInvalid": "Invalid email address",
+    "passwordRequired": "Password is required",
+    "passwordLength": "Password must be at least 8 characters",
+    "usernameRequired": "Username is required",
+    "usernameLength": "Username must be at least 3 characters",
+    "serverError": "Something went wrong, please try again.",
+    "invalidEmail": "Please enter a valid email address",
+    "passwordTooLong": "Password is too long",
+    "firstNameLength": "First name must be at least 2 characters",
+    "firstNameTooLong": "First name is too long",
+    "lastNameLength": "Last name must be at least 2 characters",
+    "lastNameTooLong": "Last name is too long"
+  },
+  "metadata": {
+    "title": "Movie Atlas | Explore Movies & TV Shows",
+    "description": "Discover movies, TV shows, ratings, and trending titles. Explore detailed information, reviews, and personalized recommendations all in one place.",
+    "ogTitle": "Movie Atlas | Explore Movies & TV Shows",
+    "ogDescription": "Discover movies, TV shows, ratings, and trending titles in one place."
+  }
 }

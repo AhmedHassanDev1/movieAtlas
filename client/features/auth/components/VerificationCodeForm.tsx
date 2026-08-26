@@ -10,7 +10,7 @@ import { AxiosError } from "axios";
 import { errorMessage } from "@/utils/message";
 import { useRouter } from "next/navigation";
 import SubmitButton from "./button/SubmitButton";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 type FormData = {
     code: string[];
@@ -19,6 +19,7 @@ type FormData = {
 export default function VerificationCode() {
     const router = useRouter()
     const locale=useLocale()
+    const t = useTranslations("auth")
     const { mutate, isPending, isIdle } = useMutation({
         mutationFn: emailVerification,
         onError: (error) => {
@@ -90,13 +91,13 @@ export default function VerificationCode() {
                 variant="h1"
                 sx={{ fontWeight: 500 }}
             >
-                Verification Code
+                {t("verificationCode")}
             </Typography>
             <Typography
                 variant="h6"
                 color="secondary"
                 sx={{ fontWeight: 400 }} >
-                We sent a 6-digit code your email
+                {t("verificationSent")}
             </Typography>
 
             <Controller
@@ -130,7 +131,7 @@ export default function VerificationCode() {
                 loading={isPending}
                 onClick={handleClick}
             >
-                {isPending ? "verifing..." : "verify"}
+                {isPending ? t("verifying") : t("verify")}
             </SubmitButton>
 
 

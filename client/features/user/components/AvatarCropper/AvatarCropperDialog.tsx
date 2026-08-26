@@ -2,6 +2,7 @@ import { Dialog, DialogTitle, DialogContent, DialogActions, Button, Box, Circula
 import { CropperCanvas } from "./CropperCanvas"
 import { useImageCrop } from "./useImageCrop"
 import { Area } from "react-easy-crop"
+import { useTranslations } from "next-intl"
 
 type Props = {
     open: boolean
@@ -18,6 +19,8 @@ export function AvatarCropperDialog({
     onClose,
     onSave,
 }: Props) {
+    const tUser = useTranslations("user");
+    const tButton = useTranslations("button");
     const {
         crop,
         zoom,
@@ -34,7 +37,7 @@ export function AvatarCropperDialog({
 
     return (
         <Dialog open={open} onClose={onClose} fullWidth>
-            <DialogTitle>Crop Image</DialogTitle>
+            <DialogTitle>{tUser("cropImage")}</DialogTitle>
 
             <DialogContent>
                 <Box sx={{ position: "relative", height: 400 }}>
@@ -63,9 +66,9 @@ export function AvatarCropperDialog({
             </DialogContent>
 
             <DialogActions sx={{display:"flex",gap:2,padding:1}}>
-                <Button onClick={onClose} loading={isPending}>Cancel</Button>
+                <Button onClick={onClose} loading={isPending}>{tButton("cancel")}</Button>
                 <Button onClick={handleSave} variant="contained" loading={isPending}>
-                    Save
+                    {tButton("save")}
                 </Button>
             </DialogActions>
         </Dialog>

@@ -13,7 +13,7 @@ import { ThreeDot } from "react-loading-indicators";
 
 
 function GenreTitlesSection({ genreId }: { genreId: number }) {
-    const t = useTranslations("")
+    const t = useTranslations()
     const [value, setValue] = useState(0);
     const [sortBy, setSordBy] = useState<SortBy>("popularity.desc");
     const [type, setType] = useState<TitleType | "all">("all");
@@ -78,7 +78,7 @@ function GenreTitlesSection({ genreId }: { genreId: number }) {
             justifyContent: "center",
             p: 2
         }}>
-            <Typography variant="h4">No content found matching your current filters.</Typography>
+            <Typography variant="h4">{t("global.noContent")}</Typography>
         </Box>
     }
     return (
@@ -92,15 +92,15 @@ function GenreTitlesSection({ genreId }: { genreId: number }) {
                     label="Age"
                 >
                     <MenuItem value={"all"}>
-                        ALL
+                        {t("global.all")}
                     </MenuItem>
-                    <MenuItem value={"movie"}>Movie</MenuItem>
-                    <MenuItem value={"tv"}>TV</MenuItem>
+                    <MenuItem value={"movie"}>{t("title.movie")}</MenuItem>
+                    <MenuItem value={"tv"}>{t("title.tv")}</MenuItem>
 
                 </Select>
                 <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-                    <Tab label="Popular" />
-                    <Tab label="top rating" />
+                    <Tab label={t("global.popular")} />
+                    <Tab label={t("global.topRating")} />
                 </Tabs>
             </Stack>
             <Grid spacing={2} container>

@@ -13,6 +13,7 @@ import {
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import { use, useState } from "react";
+import { useTranslations, useLocale } from "next-intl";
 
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -40,6 +41,8 @@ type ErrorResponse = {
 function LoginForm() {
     const router = useRouter()
     const theme = useTheme()
+    const locale = useLocale()
+    const t = useTranslations("auth")
     const isArabic = theme.direction == "rtl"
     const [showPassword, setShowPassword] = useState(false);
     const { authState: { pending_Verification }, setAuthState } = use<AuthContextType>(AuthContext)
@@ -106,7 +109,7 @@ function LoginForm() {
                 spacing={2}
                 direction={"column"}
                 sx={{ alignContent: "center", width: "100%" }} >
-                <Typography variant="h4">Login</Typography>
+                <Typography variant="h4">{t("login")}</Typography>
 
                 <Controller
                     name="email"
@@ -115,7 +118,7 @@ function LoginForm() {
                         return <>
                             <TextField
                                 {...field}
-                                placeholder="Email"
+                                placeholder={t("email")}
                                 error={!!errors.email}
 
                             />
@@ -132,7 +135,7 @@ function LoginForm() {
                         return <>
                             <TextField
                                 {...field}
-                                placeholder="Password"
+                                placeholder={t("password")}
                                 type={showPassword ? "text" : "password"}
                                 error={!!errors.password}
                                 slotProps={{
@@ -160,12 +163,12 @@ function LoginForm() {
                 />
 
                 <SubmitButton loading={isPending} >
-                    Login
+                    {t("login")}
                 </SubmitButton>
 
                 <Typography variant="h6">
-                    I dont have an account
-                    <Link href={"/en/signup"} className="font-bold text-sm">  sign up </Link>
+                    {t("dontHaveAccount")}
+                    <Link href={`/${locale}/signup`} className="font-bold text-sm"> {t("signup")} </Link>
                 </Typography>
             </Stack>
         </form>
