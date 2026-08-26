@@ -39,10 +39,13 @@ function WatchListButton({
 
       const previous = queryClient.getQueryData(queryKey);
 
-      queryClient.setQueryData(queryKey, (old: InteractionsTitleStat) => ({
-        ...old,
-        watchlist: !old?.watchlist,
-      }));
+      queryClient.setQueryData(queryKey, (old: InteractionsTitleStat | undefined) => {
+        if (!old) return old;
+        return {
+          ...old,
+          watchlist: !old.watchlist,
+        };
+      });
 
       return { previous };
     },

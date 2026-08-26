@@ -7,9 +7,7 @@ import StarRateIcon from '@mui/icons-material/StarRate';
 import Loading from '@/design-system/components/ui/loading';
 import AddRatingDialog from '../../AddRatingDialog';
 import { useState } from 'react';
-
-import { getTitleStat } from '@/features/Interactions/api/interactions';
-import { useQuery } from '@tanstack/react-query';
+import useTitleStatistics from '@/features/title/hooks/useTitleStatistics';
 
 type ToggleRateButtonProps = {
   titleId: string;
@@ -27,15 +25,7 @@ function RateButton({
   const t = useTranslations("title")
   const [open, setOpen] = useState(false);
 
- 
-  
-   
-  const { data: stat, isLoading, } = useQuery({
-    queryFn: () => getTitleStat(titleId),
-    queryKey: ["title stat", titleId],
-    enabled: !!titleId,
-    retry: false,
-  })
+  const { data: stat, isLoading } = useTitleStatistics(titleId);
 
   if (isLoading) {
     return <Box sx={{

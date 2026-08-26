@@ -24,36 +24,39 @@ function AddRatingDialog({ isOpen, titleId, titleName, onClose }: AddRatingDialo
     const { data: stat } = useTitleStatistics(titleId)
 
 
-    const { mutateAsync: DeleteRating, isPending: removing } = useMutation({
+    const { mutate: DeleteRating, isPending: removing } = useMutation({
         mutationFn: () => removeRating({ titleId }),
-        mutationKey: ["delete rating", titleId]
+        mutationKey: ["delete rating", titleId],
+        onSuccess: () => {
+            queryClient.setQueryData(["title stat", titleId], (old: any) => {
+                if (!old) return old;
+                return { ...old, rating: 0 };
+            });
+            onClose();
+        }
     })
-    const { mutateAsync, isPending: adding } = useMutation({
+    const { mutate, isPending: adding } = useMutation({
         mutationFn: addRating,
-        mutationKey: ["add rating", titleId]
+        mutationKey: ["add rating", titleId],
+        onSuccess: (_, variables) => {
+            queryClient.setQueryData(["title stat", titleId], (old: any) => {
+                if (!old) return old;
+                return { ...old, rating: variables.value };
+            });
+            onClose();
+        }
     })
     const t = useTranslations("")
     const [rating, setRating] = useState<number | null>(stat?.rating || 0)
 
-    const handleSubmit = async () => {
+    const handleSubmit = () => {
         if (rating) {
-            const res = await mutateAsync({ titleId, value: rating })
-            queryClient.setQueryData(["title stat", titleId], {
-                ...stat,
-                rating
-            })
-            onClose()
+            mutate({ titleId, value: rating });
         }
     }
 
-    const handleRemoveRating = async () => {
-        await DeleteRating()
-        queryClient.setQueryData(["title stat", titleId], {
-            ...stat,
-            rating: 0
-        })
-        onClose()
-
+    const handleRemoveRating = () => {
+        DeleteRating();
     }
     return (
 

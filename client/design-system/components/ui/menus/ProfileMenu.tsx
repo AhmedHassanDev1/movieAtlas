@@ -25,11 +25,11 @@ function ProfileMenu({ anchorEl, isOpen, setAnchorEl }: MenuPropsType) {
         mutationKey: ["logout"],
         onSuccess: () => {
             if(window?.location){
-                window.location.reload()
+                window.location.href = "/"
             }
         }
     })
-    if (!isSuccess) return;
+    if (!isSuccess) return null;
 
 
     return (

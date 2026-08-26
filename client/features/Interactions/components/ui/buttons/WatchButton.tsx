@@ -29,10 +29,13 @@ function WatchButton({ titleId, variant = "outlined" }: { titleId: string, varia
 
             const previous = queryClient.getQueryData(queryKey);
 
-            queryClient.setQueryData(queryKey, (old: InteractionsTitleStat) => ({
-                ...old,
-                watched: !old?.watched,
-            }));
+            queryClient.setQueryData(queryKey, (old: InteractionsTitleStat | undefined) => {
+                if (!old) return old;
+                return {
+                    ...old,
+                    watched: !old.watched,
+                };
+            });
 
             return { previous };
         },
