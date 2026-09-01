@@ -11,7 +11,9 @@ import CheckIcon from '@mui/icons-material/Check';
 import useTitleStatistics from "@/features/title/hooks/useTitleStatistics";
 import { addToWatchList, deleteFromWatchList } from "@/features/Interactions/api/watchList";
 import { queryClient } from "@/design-system/components/providers";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
+import { useRouter } from 'next/navigation';
+import useAuth from '@/hooks/useAuth';
 import { InteractionsTitleStat } from "@/features/Interactions/types/interactions";
 import { errorMessage, successMessage } from "@/utils/message";
 
@@ -24,6 +26,9 @@ function WatchListButton({
   type?: "icon" | "text"
 }) {
   const t = useTranslations("button")
+  const locale = useLocale();
+  const router = useRouter();
+  const { data: user } = useAuth();
   const { data: stat, isLoading, } = useTitleStatistics(titleId)
   const queryKey = ["title-stat", titleId];
 
@@ -97,6 +102,12 @@ function WatchListButton({
     <Box onClick={(e) => {
       e.stopPropagation()
       e.preventDefault()
+      
+      if (!user) {
+          router.push(`/${locale}/login`);
+          return;
+      }
+      
       mutateAsync()
     }}
       sx={{ cursor: "pointer", display: 'inline-block' }}

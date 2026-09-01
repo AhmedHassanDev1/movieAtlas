@@ -1,7 +1,9 @@
 "use client"
 
 import { Box, Button, Typography } from '@mui/material';
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
+import { useRouter } from 'next/navigation';
+import useAuth from '@/hooks/useAuth';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import StarRateIcon from '@mui/icons-material/StarRate';
 import Loading from '@/design-system/components/ui/loading';
@@ -23,6 +25,9 @@ function RateButton({
   titleName
 }: ToggleRateButtonProps) {
   const t = useTranslations("title")
+  const locale = useLocale();
+  const router = useRouter();
+  const { data: user } = useAuth();
   const [open, setOpen] = useState(false);
 
   const { data: stat, isLoading } = useTitleStatistics(titleId);
@@ -50,6 +55,12 @@ function RateButton({
         onClick={(e) => {
           e.preventDefault()
           e.stopPropagation()
+          
+          if (!user) {
+              router.push(`/${locale}/login`);
+              return;
+          }
+          
           setOpen(true)
 
         }}

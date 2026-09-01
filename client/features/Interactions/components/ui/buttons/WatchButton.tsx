@@ -10,11 +10,15 @@ import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
 import { Box, Button, Typography } from '@mui/material';
 import { useMutation } from '@tanstack/react-query';
-import { useTranslations } from 'next-intl';
-
+import { useTranslations, useLocale } from 'next-intl';
+import { useRouter } from 'next/navigation';
+import useAuth from '@/hooks/useAuth';
 
 function WatchButton({ titleId, variant = "outlined" }: { titleId: string, variant?: "text" | "outlined" | "contained" }) {
     const t = useTranslations("button")
+    const locale = useLocale();
+    const router = useRouter();
+    const { data: user } = useAuth();
 
     const { data: stat, isLoading, } = useTitleStatistics(titleId)
     const queryKey = ["title-stat", titleId];
@@ -62,6 +66,12 @@ function WatchButton({ titleId, variant = "outlined" }: { titleId: string, varia
                 if (loading) return
                 e.preventDefault()
                 e.stopPropagation()
+                
+                if (!user) {
+                    router.push(`/${locale}/login`);
+                    return;
+                }
+
                 toggleWatch()
             }}
             sx={{
